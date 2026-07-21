@@ -171,3 +171,347 @@ input[type="range"]:focus-visible {
     grid-template-columns: 1fr;
   }
 }
+
+/* Phase 2 Prologue */
+.prologue-launch,
+.prologue-stage {
+  position: relative;
+  min-height: 100dvh;
+  overflow: hidden;
+  color: var(--color-ivory-100);
+  background: var(--color-obsidian-950);
+  isolation: isolate;
+}
+
+.prologue-launch {
+  display: grid;
+  place-items: center;
+  padding: clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+}
+
+.prologue-launch::before,
+.prologue-stage::before {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 38%, rgb(185 154 85 / 12%), transparent 32%),
+    radial-gradient(circle at 50% 115%, rgb(49 91 69 / 28%), transparent 46%),
+    linear-gradient(145deg, #111714, #080a09 64%);
+  content: "";
+}
+
+.prologue-launch__aura {
+  position: absolute;
+  z-index: -1;
+  width: min(80vw, 42rem);
+  aspect-ratio: 1;
+  border: 1px solid rgb(209 186 130 / 12%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 9rem rgb(185 154 85 / 10%),
+    inset 0 0 9rem rgb(49 91 69 / 8%);
+}
+
+.prologue-launch__content {
+  display: grid;
+  justify-items: center;
+  width: min(100%, 42rem);
+}
+
+.prologue-launch__mark {
+  width: clamp(7.5rem, 17vw, 11rem);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 1.5rem 2.5rem rgb(0 0 0 / 55%));
+}
+
+.prologue-kicker,
+.prologue-launch__note {
+  color: var(--color-metal-300);
+  font-size: clamp(0.68rem, 1vw, 0.78rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.prologue-launch h1 {
+  margin: 0.25rem 0 2.5rem;
+  font-size: clamp(3rem, 9vw, 6.75rem);
+  letter-spacing: -0.035em;
+}
+
+.prologue-primary-action {
+  min-width: min(100%, 18rem);
+  padding: 0.95rem 1.75rem;
+  border-color: rgb(209 186 130 / 70%);
+  background: rgb(8 10 9 / 60%);
+  box-shadow: 0 1.5rem 4rem rgb(0 0 0 / 35%);
+}
+
+.prologue-launch__note {
+  margin-top: 1rem;
+  color: var(--color-metal-500);
+  letter-spacing: 0.08em;
+  text-transform: none;
+}
+
+.prologue-stage {
+  display: grid;
+  place-items: center;
+  padding: max(1.5rem, env(safe-area-inset-top))
+    max(1.5rem, env(safe-area-inset-right))
+    max(5.5rem, env(safe-area-inset-bottom))
+    max(1.5rem, env(safe-area-inset-left));
+}
+
+.prologue-stage__architecture {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: calc(0.28 + var(--scene-progress) * 0.3);
+  pointer-events: none;
+}
+
+.prologue-stage__architecture span {
+  position: absolute;
+  top: 6%;
+  bottom: 6%;
+  left: 50%;
+  width: min(72vw, 62rem);
+  border: 1px solid rgb(185 154 85 / 10%);
+  transform: translateX(-50%) perspective(900px) rotateX(67deg) rotateZ(45deg);
+}
+
+.prologue-stage__architecture span:nth-child(2) {
+  width: min(50vw, 42rem);
+}
+
+.prologue-stage__architecture span:nth-child(3) {
+  width: min(30vw, 25rem);
+}
+
+.prologue-scene {
+  display: grid;
+  justify-items: center;
+  width: min(100%, 64rem);
+  text-align: center;
+  opacity: var(--transition-opacity);
+}
+
+.prologue-logo {
+  display: block;
+  width: clamp(9rem, 24vw, 18rem);
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2rem 3rem rgb(0 0 0 / 60%))
+    drop-shadow(0 0 2.5rem rgb(185 154 85 / 10%));
+  transform: translateY(calc((1 - var(--scene-progress)) * 0.8rem))
+    scale(calc(0.985 + var(--scene-progress) * 0.015));
+}
+
+.prologue-logo--gac {
+  width: clamp(8rem, 20vw, 14rem);
+}
+
+.prologue-copy {
+  display: grid;
+  justify-items: center;
+  margin-top: clamp(1rem, 3vw, 2.5rem);
+}
+
+.prologue-copy__line {
+  margin: 0.25rem 0;
+  color: var(--color-ivory-100);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3.25rem);
+  font-weight: 400;
+  line-height: 1.14;
+  text-wrap: balance;
+}
+
+p.prologue-copy__line:first-child {
+  margin-bottom: 1.25rem;
+  color: var(--color-gold-300);
+  font-family: var(--font-interface);
+  font-size: clamp(0.68rem, 1.2vw, 0.82rem);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.prologue-stage--dedication .prologue-copy__line:not(:first-child) {
+  opacity: clamp(0.38, calc(var(--scene-progress) * 3), 1);
+}
+
+.prologue-stage--act-handoff .prologue-logo {
+  width: clamp(5.5rem, 12vw, 8rem);
+  opacity: 0.75;
+}
+
+.prologue-stage--act-handoff .prologue-copy__line:first-child {
+  margin-bottom: 0.5rem;
+}
+
+.prologue-stage--act-handoff h1 {
+  font-size: clamp(2.75rem, 8vw, 6rem);
+}
+
+.prologue-stage--act-chapter .prologue-scene,
+.prologue-stage--future-handoff .prologue-scene {
+  max-width: 52rem;
+}
+
+.prologue-stage--act-chapter .prologue-copy,
+.prologue-stage--future-handoff .prologue-copy {
+  gap: 0.35rem;
+}
+
+.prologue-stage--act-chapter .prologue-copy__line,
+.prologue-stage--future-handoff .prologue-copy__line {
+  font-size: clamp(1.4rem, 4vw, 3.1rem);
+}
+
+.prologue-stage--act-chapter .prologue-copy h1,
+.prologue-stage--future-handoff .prologue-copy h1 {
+  margin-top: 1rem;
+  color: var(--color-ivory-100);
+  font-size: clamp(2.8rem, 8vw, 6.5rem);
+}
+
+.prologue-stage--future-handoff::after {
+  position: absolute;
+  z-index: -1;
+  width: min(70vw, 46rem);
+  aspect-ratio: 1;
+  border: 1px solid rgb(209 186 130 / 10%);
+  border-radius: 50%;
+  box-shadow: 0 0 8rem rgb(49 91 69 / 14%);
+  content: "";
+}
+
+.quality--essential .prologue-stage__architecture,
+.quality--essential::before {
+  opacity: 0.35;
+}
+
+.quality--cinematic .prologue-stage__architecture {
+  filter: drop-shadow(0 0 3rem rgb(185 154 85 / 12%));
+}
+
+.prologue-caption {
+  position: absolute;
+  right: 1rem;
+  bottom: 5.75rem;
+  left: 1rem;
+  width: fit-content;
+  max-width: min(44rem, calc(100% - 2rem));
+  margin-inline: auto;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-sm);
+  color: #fff;
+  background: rgb(0 0 0 / 78%);
+  font-size: clamp(0.88rem, 1.8vw, 1.05rem);
+  line-height: 1.45;
+  text-align: center;
+}
+
+.prologue-controls {
+  position: absolute;
+  right: max(1rem, env(safe-area-inset-right));
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  left: max(1rem, env(safe-area-inset-left));
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.58;
+  transition: opacity var(--duration-interface) var(--ease-machined);
+}
+
+.prologue-controls:hover,
+.prologue-controls:focus-within {
+  opacity: 1;
+}
+
+.prologue-controls button {
+  min-height: 2.5rem;
+  padding-inline: 0.85rem;
+  border-color: rgb(209 186 130 / 32%);
+  background: rgb(8 10 9 / 68%);
+  font-size: 0.76rem;
+}
+
+.prologue-controls__audio {
+  padding: 0.55rem 0.7rem;
+  color: var(--color-metal-300);
+  font-size: 0.72rem;
+}
+
+.prologue-notice {
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  max-width: calc(100% - 2rem);
+  padding: 0.7rem 1rem;
+  border: 1px solid rgb(95 139 112 / 45%);
+  background: rgb(8 10 9 / 88%);
+  transform: translateX(-50%);
+}
+
+.prologue-notice button {
+  margin-left: 0.75rem;
+}
+
+.prologue-debug {
+  position: fixed;
+  z-index: 10;
+  top: 0.75rem;
+  left: 0.75rem;
+  display: grid;
+  width: min(22rem, calc(100% - 1.5rem));
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid rgb(167 173 168 / 35%);
+  color: var(--color-metal-300);
+  background: rgb(8 10 9 / 92%);
+  font-size: 0.72rem;
+  text-align: left;
+}
+
+.prologue-debug label {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.prologue-debug input,
+.prologue-debug select {
+  width: 100%;
+}
+
+@media (max-width: 38rem) {
+  .prologue-controls {
+    flex-wrap: wrap;
+  }
+
+  .prologue-controls__audio {
+    display: none;
+  }
+
+  .prologue-logo {
+    width: clamp(8rem, 44vw, 13rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prologue-logo {
+    transform: none;
+  }
+
+  .prologue-stage__architecture {
+    opacity: 0.35;
+  }
+}

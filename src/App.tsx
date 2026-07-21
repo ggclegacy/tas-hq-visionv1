@@ -13,7 +13,10 @@ export function App() {
 
   return (
     <RuntimeErrorBoundary>
-      <RuntimeStage director={director} />
+      <RuntimeStage
+        director={director}
+        debug={new URLSearchParams(window.location.search).has("debug")}
+      />
     </RuntimeErrorBoundary>
   );
 }

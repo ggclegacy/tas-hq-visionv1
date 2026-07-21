@@ -2,7 +2,7 @@
 
 Last updated: 2026-07-21
 
-Phase status: **Phase 1 complete**
+Phase status: **Phases 1–4 implemented; project-owner manual visual acceptance pending for Prompts 8**
 
 ## Project identity
 
@@ -140,12 +140,115 @@ The original logo files must not be overwritten, distorted, traced, or destructi
 - Known issues or deferred work: no browser backend was available for interactive screenshot QA, so responsive, focus, contrast, and reduced-motion behavior was verified from semantic markup, CSS breakpoints/preferences, tests, and production build rather than claimed visual inspection. A local HTTP smoke request was unavailable due the execution environment; the Vite server did start successfully and the production build passes.
 - Exact recommended next prompt: **Phase 2, Prompt 1 — Define and author the Prologue presentation slice.**
 
+### Phase 2, Prompt 1 — Define and author the Prologue presentation slice
+
+- Status: Complete
+- Completion date: 2026-07-21
+- Files: `docs/PROLOGUE_TREATMENT.md`, `src/presentation/prologue-manifest.ts`, focused tests, contracts/exports, and this record.
+- Validation: format, strict types, zero-warning lint, focused/full tests, and production build passed.
+- Decisions: five scenes span exactly 54 seconds; approved copy/transcript are exact; unavailable Onyx narration and ambience are explicit pending assets; silence is a complete path.
+- Deferred: final Onyx voice and approved ambience files.
+- Next: **Phase 2, Prompt 2 — Harden Prologue contracts and deterministic cue resolution.**
+
+### Phase 2, Prompt 2 — Harden Prologue contracts and deterministic cue resolution
+
+- Status: Complete
+- Completion date: 2026-07-21
+- Files: `src/presentation/resolve-frame.ts`, focused tests, and presentation exports.
+- Validation: exact boundaries, final inclusive hold, backward seeks, large jumps, captions, stable repeated resolution, and reduced motion are tested.
+- Decisions: resolution is a pure function of manifest data, Director snapshot, quality, captions, and motion preference; it owns no time or mutable chronology.
+- Next: **Phase 2, Prompt 3 — Build the cinematic scene and transition primitives.**
+
+### Phase 2, Prompt 3 — Build the cinematic scene and transition primitives
+
+- Status: Complete
+- Completion date: 2026-07-21
+- Files: `src/stage/RuntimeStage.tsx` and `src/styles.css`.
+- Validation: type/lint and integration coverage plus source audit for safe areas, responsive breakpoints, `object-fit: contain`, focus, and reduced motion.
+- Decisions: React, CSS, browser APIs, and system fonts satisfy the slice; no dependency was added. Quality changes fidelity only.
+- Next: **Phase 2, Prompt 4 — Implement the presenting credit and world transition.**
+
+### Phase 2, Prompt 4 — Implement the presenting credit and world transition
+
+- Status: Complete
+- Completion date: 2026-07-21
+- Files: stage composition, cinematic styles, and integration tests.
+- Validation: direct seeks cover stillness, GAC credit, later boundaries, and interruption recovery.
+- Decisions: only the byte-identical GAC public asset appears in the credit; approved copy remains semantic text; reduced motion is static.
+- Next: **Phase 2, Prompt 5 — Implement the TAS HQ emblem and Prologue handoff.**
+
+### Phase 2, Prompt 5 — Implement the TAS HQ emblem and Prologue handoff
+
+- Status: Complete
+- Completion date: 2026-07-21
+- Files: complete Prologue composition, final hold, styles, and end-to-end stage tests.
+- Validation: dedication, emblem, completion boundary, pause/seek/replay, and final authored frame are covered.
+- Decisions: the stopped Director `completed` state is the safe waiting condition while the resolver holds `Act I` / `The Standard`; no Act I or developer screen is exposed.
+- Next: **Phase 2, Prompt 6 — Integrate approved audio, narration, and captions.**
+
+### Phase 2, Prompt 6 — Integrate approved audio, narration, and captions
+
+- Status: Complete for supplied assets
+- Completion date: 2026-07-21
+- Files: narration/caption metadata, caption rendering/control, silent media wiring, and tests.
+- Validation: timed captions after seeks, explicit silent mode, and declared pending media references are covered.
+- Decisions: pending media paths are never loaded. The injected adapter remains the hook for final Onyx audio; essential meaning is visual and captioned.
+- Deferred: final Onyx/ambience assets, provenance, and drift validation against those files.
+- Next: **Phase 2, Prompt 7 — Create the executive launch, playback, and fullscreen experience.**
+
+### Phase 2, Prompt 7 — Create the executive launch, playback, and fullscreen experience
+
+- Status: Complete
+- Completion date: 2026-07-21
+- Files: production launch/controls, Prologue director wiring, default `App`, styles, and integration tests.
+- Validation: launch, fullscreen denial, pause/resume, visibility recovery, captions, silence, completion, and replay are tested.
+- Decisions: default route is cinematic; quality/seek controls require `?debug`; fullscreen is user-initiated and optional.
+- Next: **Phase 2, Prompt 8 — Visually verify, harden, and close Phase 2.**
+
+### Phase 2, Prompt 8 — Visually verify, harden, and close Phase 2
+
+- Status: In progress — implementation hardening complete; browser evidence blocked by unavailable backend
+- Date: 2026-07-21
+- Validation completed: complete quality suite/build, dependency audit, secret/architecture scans, successful Vite startup, logo byte/hash checks, and semantic/CSS/test audits of captions, reduced motion, quality tiers, focus, fullscreen denial, interruption, completion, and replay.
+- Honest limitation: prescribed browser discovery returned no available browser backend. Representative screenshots, live keyboard traversal, visual contrast inspection, live fullscreen success/escape, and an HTTP request from a separate sandbox command could not be completed; no alternative automation is claimed.
+- Closure: keep Phase 2 formally open until browser QA covers desktop, laptop, narrow, reduced motion, all tiers, critical boundaries, focus/keyboard use, and fullscreen outcomes.
+- Next: **Resume Phase 2, Prompt 8 — complete browser visual QA and close Phase 2.**
+
+### Phase 3 — First Act prompts 1–8
+
+- Prompt 1: Complete — delegated source-mapped treatment at `docs/FIRST_ACT_TREATMENT.md`.
+- Prompt 2: Complete — Act I is authored within the validated production manifest at absolute time 00:54–01:54.
+- Prompt 3: Complete — four deterministic chapter boundaries resolve after the Prologue with arbitrary forward/backward seeking.
+- Prompt 4: Complete — “The Standard” opening is semantic, responsive, tier-aware, and reduced-motion safe.
+- Prompt 5: Complete — Trust and Knowledge chapters use only approved conceptual language and portray no product behavior or data.
+- Prompt 6: Complete — Standards/Leadership/People synthesis composes into the authorized Act II boundary.
+- Prompt 7: Complete for supplied assets — no Act I media is required; existing silent-safe executive playback remains canonical.
+- Prompt 8: Automated hardening complete; final visual acceptance is delegated to the project owner's manual inspection.
+- Source/evidence policy: every scene references `project-owner-approved-prologue-language`; no metrics, customer outcomes, data, or product-capability claims appear.
+- Validation: production-manifest and stage integration tests cover entry, all chapter boundaries, direct/backward seeks, completion, replay, reduced motion, quality tiers, interruption, fullscreen denial, and silent fallback.
+
+### Phase 4 — Second Act prompts 1–8
+
+- Prompt 1: Complete — delegated source-mapped treatment at `docs/SECOND_ACT_TREATMENT.md`.
+- Prompt 2: Complete — Act II composes at absolute time 01:54–02:54 without modifying earlier timing.
+- Prompt 3: Complete — four deterministic chapter boundaries resolve from Director snapshots and terminate at one inert Act III threshold.
+- Prompt 4: Complete — “Carried Forward” establishes a distinct conceptual context after Act I.
+- Prompt 5: Complete — Knowledge and Standards chapters contain no data, demonstration, live state, or implied backend capability.
+- Prompt 6: Complete — Leadership synthesis ends at `Act III / The Future Standard`; Act III is not implemented.
+- Prompt 7: Complete for supplied assets — no new media or presenter controls are required; silent fallback and existing controls remain intact.
+- Prompt 8: Automated hardening complete; final visual acceptance is delegated to the project owner's manual inspection.
+- Data/product policy: all Act II scenes declare `dataClassification: "none"`; no product state is portrayed.
+- Validation: contiguous act timing, globally unique IDs, source mapping, deterministic boundaries, stage seeking, completion, replay, accessibility semantics, reduced motion, and quality-tier invariants are automated.
+
 ## Decisions
 
 - Preserve the two root-level logo originals as immutable source assets.
 - Keep the cinematic presentation runtime independent from the later free-exploration application shell.
 - Add dependencies only when required by an active prompt and document their purpose.
 - Treat the Presentation Director as the future single source of truth for canonical presentation state and time.
+- Use the Director's stopped `completed` state and final authored frame as the intentional future-Act waiting condition.
+- Keep final Onyx narration and ambience optional and replaceable; pending paths are never loaded.
+- Treat the project owner's instruction to build every uploaded phase as explicit delegation for conservative conceptual treatments, never as approval to invent metrics or capabilities.
 
 ## Risks
 
@@ -155,12 +258,12 @@ The original logo files must not be overwritten, distorted, traced, or destructi
 
 ## Deferred work
 
-- Final Prologue and presentation acts.
-- Final narration, audio, captions, transitions, and 3D environments.
-- Executive-facing control design and fullscreen behavior.
+- Project-owner manual visual acceptance for Phase 2, Phase 3, and Phase 4 Prompt 8 gates.
+- Final Onyx narration and approved ambience/provenance.
+- Act III and later presentation acts, later narration, and 3D environments.
 - Quality-tier media implementations beyond typed intent.
 - Free-exploration application shell and navigation.
 
 ## Next action
 
-Prepare a separate Phase 2 build sequence, beginning with **Phase 2, Prompt 1 — Define and author the Prologue presentation slice**. Do not implement Phase 2 content until its scope and acceptance criteria are approved.
+The project owner should complete manual visual acceptance for the Prologue, every Act I/II chapter, responsive viewports, keyboard focus, reduced motion, all quality tiers, interruption, fullscreen outcomes, and the final Act III threshold. Record acceptance or defects before formally closing Prompts 8. Do not begin Act III without a separate approved build sequence.

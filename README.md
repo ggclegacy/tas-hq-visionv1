@@ -1,6 +1,6 @@
 # TAS HQ Executive Vision Experience
 
-A foundation for a directed executive cinematic experience. Phase 1 provides the deterministic presentation runtime and its temporary integration stage; it does not contain final presentation content.
+A directed executive cinematic experience. The production sequence now composes the 54-second Prologue, 60-second Act I, and 60-second Act II on one deterministic timeline.
 
 ## Setup
 
@@ -23,6 +23,8 @@ npm run dev
 
 See [CONTRIBUTING.md](CONTRIBUTING.md), [runtime architecture](docs/ARCHITECTURE.md), and [current build status](BUILD_STATUS.md) before extending the project.
 
+The default route opens the executive Prologue launch. Append `?debug` during local development to expose quality-tier and seek controls. Debug controls are never shown by default.
+
 ## Phase boundary
 
-The sample manifest and visible controls are foundation test scaffolding. They are not the Prologue, final acts, final narration, a website shell, or exploration mode.
+Act II ends at an intentional `Act III` / `The Future Standard` hold. Act III and later acts, final Onyx narration and ambience, 3D environments, the closing sequence, and exploration mode are not implemented. Pending audio paths are metadata hooks and are not loaded.

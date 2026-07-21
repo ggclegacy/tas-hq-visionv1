@@ -1,6 +1,6 @@
 import type { MediaAdapter } from "../director";
 import { PresentationDirector } from "../director";
-import { foundationManifest, validateManifest } from "../presentation";
+import { productionManifest, validateManifest } from "../presentation";
 
 const silentMediaAdapter: MediaAdapter = {
   prepare: () => undefined,
@@ -12,10 +12,10 @@ const silentMediaAdapter: MediaAdapter = {
 };
 
 export function createBrowserDirector(): PresentationDirector {
-  const validation = validateManifest(foundationManifest);
+  const validation = validateManifest(productionManifest);
   if (!validation.ok) {
     throw new Error(
-      `Foundation manifest is invalid: ${validation.issues.map((issue) => `${issue.path}: ${issue.message}`).join("; ")}`,
+      `Production presentation manifest is invalid: ${validation.issues.map((issue) => `${issue.path}: ${issue.message}`).join("; ")}`,
     );
   }
 

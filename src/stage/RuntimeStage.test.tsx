@@ -7,7 +7,7 @@ import {
   type DirectorClock,
   type MediaAdapter,
 } from "../director";
-import { foundationManifest } from "../presentation";
+import { productionManifest } from "../presentation";
 import { RuntimeStage } from "./RuntimeStage";
 
 class StageClock implements DirectorClock {
@@ -18,17 +18,17 @@ class StageClock implements DirectorClock {
 }
 
 const media: MediaAdapter = {
-  prepare: () => undefined,
-  play: () => undefined,
-  pause: () => undefined,
-  seek: () => undefined,
-  stop: () => undefined,
-  cleanup: () => undefined,
+  prepare: vi.fn(),
+  play: vi.fn(),
+  pause: vi.fn(),
+  seek: vi.fn(),
+  stop: vi.fn(),
+  cleanup: vi.fn(),
 };
 
 function createDirector() {
   const clock = new StageClock();
-  const director = new PresentationDirector(foundationManifest, {
+  const director = new PresentationDirector(productionManifest, {
     clock,
     media,
   });
@@ -36,64 +36,138 @@ function createDirector() {
   return { clock, director };
 }
 
-describe("RuntimeStage integration", () => {
+describe("Prologue stage integration", () => {
   beforeEach(() => {
     vi.stubGlobal(
       "requestAnimationFrame",
       vi.fn(() => 1),
     );
     vi.stubGlobal("cancelAnimationFrame", vi.fn());
+    vi.stubGlobal(
+      "matchMedia",
+      vi.fn(() => ({
+        matches: false,
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+      })),
+    );
   });
 
   afterEach(() => vi.unstubAllGlobals());
 
-  it("runs the manifest-to-director-to-renderer playback path", async () => {
+  it("launches the approved production experience without developer controls", async () => {
     const user = userEvent.setup();
-    const { clock, director } = createDirector();
+    const { director } = createDirector();
     render(<RuntimeStage director={director} />);
 
-    await user.click(screen.getByRole("button", { name: "Begin" }));
-    expect(screen.getByText("playing")).toBeInTheDocument();
-    expect(screen.getByText("foundation-scene-a")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "TAS HQ" })).toBeInTheDocument();
+    expect(screen.queryByText("Development controls")).not.toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: "Begin the Presentation" }),
+    );
+    expect(director.getSnapshot().state).toBe("playing");
+    expect(screen.getByLabelText("TAS HQ Prologue")).toBeInTheDocument();
+  });
 
-    act(() => {
-      clock.time = 1_200;
-      director.tick();
-    });
-    expect(screen.getByText("1.200s / 12.000s")).toBeInTheDocument();
+  it("reconstructs Prologue, both acts, and the final threshold after seeks", async () => {
+    const user = userEvent.setup();
+    const { director } = createDirector();
+    render(<RuntimeStage director={director} debug />);
+    await user.click(
+      screen.getByRole("button", { name: "Begin the Presentation" }),
+    );
 
-    await user.click(screen.getByRole("button", { name: "Pause" }));
-    expect(screen.getByText("paused")).toBeInTheDocument();
-    await user.click(screen.getByRole("button", { name: "Resume" }));
-    expect(screen.getByText("playing")).toBeInTheDocument();
-
-    fireEvent.change(screen.getByRole("slider", { name: "Seek" }), {
-      target: { value: "6500" },
-    });
-    expect(screen.getByText("foundation-scene-b")).toBeInTheDocument();
-    expect(screen.getByText("6.500s / 12.000s")).toBeInTheDocument();
+    const seek = screen.getByRole("slider", { name: "Seek" });
+    fireEvent.change(seek, { target: { value: "5000" } });
+    expect(
+      screen.getByText("Gent Ascend Collective presents"),
+    ).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "15000" } });
+    expect(screen.getByText("Blair Vidrine")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "30000" } });
+    expect(
+      screen.getByText("An Executive Vision Experience"),
+    ).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "54000" } });
+    expect(screen.getByText("The Standard")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "More than systems" }),
+    ).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "114000" } });
+    expect(
+      screen.getByRole("heading", { name: "Carried Forward" }),
+    ).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "174000" } });
+    expect(
+      screen.getByRole("heading", { name: "The Future Standard" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Replay Prologue" }),
+    ).toBeEnabled();
   });
 
   it("pauses on visibility interruption and recovers without clock drift", async () => {
     const user = userEvent.setup();
     const { clock, director } = createDirector();
     render(<RuntimeStage director={director} />);
-    await user.click(screen.getByRole("button", { name: "Begin" }));
+    await user.click(
+      screen.getByRole("button", { name: "Begin the Presentation" }),
+    );
     clock.time = 900;
 
     const visibility = vi
       .spyOn(document, "visibilityState", "get")
       .mockReturnValue("hidden");
-    void act(() => {
-      document.dispatchEvent(new Event("visibilitychange"));
-    });
-    expect(screen.getByText("interrupted")).toBeInTheDocument();
-    expect(screen.getByText(/document became hidden/i)).toBeInTheDocument();
-
+    void act(() => document.dispatchEvent(new Event("visibilitychange")));
+    expect(director.getSnapshot().state).toBe("interrupted");
+    expect(screen.getByText(/out of view/i)).toBeInTheDocument();
     clock.time = 5_000;
     expect(director.getSnapshot().timeMs).toBe(900);
-    await user.click(screen.getByRole("button", { name: "Recover" }));
-    expect(screen.getByText("paused")).toBeInTheDocument();
+    await user.click(
+      screen.getByRole("button", { name: "Recover presentation" }),
+    );
+    expect(director.getSnapshot().state).toBe("paused");
     visibility.mockRestore();
+  });
+
+  it("offers timed captions while remaining explicit about silent mode", async () => {
+    const user = userEvent.setup();
+    const { director } = createDirector();
+    render(<RuntimeStage director={director} debug />);
+    await user.click(
+      screen.getByRole("button", { name: "Begin the Presentation" }),
+    );
+    await user.click(screen.getByRole("button", { name: "Captions off" }));
+    fireEvent.change(screen.getByRole("slider", { name: "Seek" }), {
+      target: { value: "6000" },
+    });
+    expect(
+      screen.getByText("Every organization is built on more than systems."),
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText(/audio unavailable/i)).toHaveTextContent(
+      "Silent mode",
+    );
+  });
+
+  it("continues when fullscreen is denied", async () => {
+    const user = userEvent.setup();
+    const requestFullscreen = vi
+      .fn<() => Promise<void>>()
+      .mockRejectedValue(new Error("Denied"));
+    Object.defineProperty(document.documentElement, "requestFullscreen", {
+      configurable: true,
+      value: requestFullscreen,
+    });
+    const { director } = createDirector();
+    render(<RuntimeStage director={director} />);
+    await user.click(
+      screen.getByRole("button", { name: "Begin the Presentation" }),
+    );
+    expect(requestFullscreen).toHaveBeenCalledOnce();
+    expect(director.getSnapshot().state).toBe("playing");
+    Object.defineProperty(document.documentElement, "requestFullscreen", {
+      configurable: true,
+      value: undefined,
+    });
   });
 });

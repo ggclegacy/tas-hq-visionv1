@@ -24,6 +24,8 @@ export interface AssetRequirement {
   readonly kind: "image" | "audio" | "video" | "font" | "model";
   readonly qualityTiers: readonly QualityTier[];
   readonly alt?: string;
+  readonly availability?: "available" | "pending";
+  readonly purpose?: string;
 }
 
 export interface TransitionDefinition {
@@ -110,6 +112,17 @@ export type CueDefinition =
 export interface SceneDefinition extends TimeRange {
   readonly id: string;
   readonly title: string;
+  readonly kind?:
+    | "stillness"
+    | "presenting-credit"
+    | "dedication"
+    | "emblem-reveal"
+    | "act-handoff"
+    | "act-chapter"
+    | "future-handoff";
+  readonly content?: readonly string[];
+  readonly sourceRefs?: readonly string[];
+  readonly dataClassification?: "none" | "illustrative";
   readonly cues: readonly CueDefinition[];
   readonly narrationTrackIds: readonly string[];
   readonly captionTrackIds: readonly string[];
