@@ -15,7 +15,7 @@ const staticState: ReducedMotionAlternative = {
   description: "Show the complete static composition without spatial motion.",
 };
 
-export const PROLOGUE_DURATION_MS = 54_000;
+export const PROLOGUE_DURATION_MS = 40_000;
 
 const tiers = ["essential", "enhanced", "cinematic"] as const;
 const camera = (
@@ -195,6 +195,10 @@ function authoredShot(
       transition: "dissolve",
     },
     accessibility: { label: intent },
+    continuityCarrier: assetId ? "emblem" : "architecture",
+    overlapMs: 900,
+    fullLegibilityMs: startMs + 700,
+    emblem: assetId === "gac-logo" ? "gac" : assetId === "tas-hq-logo" ? "tas-hq" : "none",
   };
 }
 

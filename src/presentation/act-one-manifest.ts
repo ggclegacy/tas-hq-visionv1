@@ -1,7 +1,7 @@
 import type { ActDefinition, SceneDefinition, ShotDefinition } from "./types";
 
-export const ACT_ONE_START_MS = 54_000;
-export const ACT_ONE_END_MS = 136_000;
+export const ACT_ONE_START_MS = 40_000;
+export const ACT_ONE_END_MS = 102_000;
 export const ACT_ONE_DURATION_MS = ACT_ONE_END_MS - ACT_ONE_START_MS;
 
 const tiers = ["essential", "enhanced", "cinematic"] as const;
@@ -35,8 +35,8 @@ const viewports = {
 const specs = [
   [
     "act1-threshold-recognition",
-    54_000,
-    62_000,
+    40_000,
+    47_000,
     [
       "Act I",
       "The Standard",
@@ -48,56 +48,56 @@ const specs = [
   ],
   [
     "act1-trust",
-    62_000,
-    72_000,
+    47_000,
+    55_000,
     ["Trust", "Earned in every interaction."],
     "Trust has human weight",
     "gold",
   ],
   [
     "act1-knowledge",
-    72_000,
-    82_000,
+    55_000,
+    63_000,
     ["Knowledge", "Made valuable when it is shared."],
     "Knowledge moves through people",
     "green",
   ],
   [
     "act1-culture",
-    82_000,
-    92_000,
+    63_000,
+    71_000,
     ["Culture", "The standard people carry when no one is watching."],
     "Culture remains embedded",
     "balanced",
   ],
   [
     "act1-people",
-    92_000,
-    102_000,
+    71_000,
+    79_000,
     ["People", "The human system behind every experience."],
     "People carry the standard",
     "balanced",
   ],
   [
     "act1-leadership",
-    102_000,
-    114_000,
+    79_000,
+    88_000,
     ["Leadership", "Clarity. Stewardship. Continuity."],
     "Leadership provides continuity",
     "gold",
   ],
   [
     "act1-synthesis",
-    114_000,
-    126_000,
+    88_000,
+    96_000,
     ["What has been built here is more than a business.", "It is a standard."],
     "One institutional standard",
     "green",
   ],
   [
     "act1-challenge-threshold",
-    126_000,
-    136_000,
+    96_000,
+    102_000,
     ["Act II", "The Challenge"],
     "Create truthful forward tension",
     "darkness",
@@ -246,6 +246,10 @@ export const actOneShots: readonly ShotDefinition[] = specs.map(
         transition: "dissolve",
       },
       accessibility: { label: `${intent}: ${content.join(" ")}` },
+      continuityCarrier: index % 3 === 0 ? "architecture" : index % 3 === 1 ? "light" : "camera",
+      overlapMs: 800,
+      fullLegibilityMs: startMs + 700,
+      emblem: "none",
     };
   },
 );

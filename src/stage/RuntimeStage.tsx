@@ -138,7 +138,7 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
             Begin the Presentation
           </button>
           <p className="cinema-launch__note">
-            2 minutes 16 seconds · Sound optional
+            3 minutes 46 seconds · Sound optional
           </p>
           {fullscreenMessage && <p role="status">{fullscreenMessage}</p>}
         </section>

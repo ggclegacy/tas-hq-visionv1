@@ -366,6 +366,10 @@ export function validateManifest(input: unknown): ValidationResult {
           "impossible_transition",
           "Transition duration must fit within the shot exit phase.",
         );
+      if (shot.overlapMs !== undefined && (shot.overlapMs < 500 || shot.overlapMs > 1_600))
+        issue(`${path}.overlapMs`, "invalid_overlap", "Shot overlap must be between 500ms and 1600ms.");
+      if (shot.fullLegibilityMs !== undefined && (shot.fullLegibilityMs < shot.startMs || shot.fullLegibilityMs - shot.startMs > 900))
+        issue(`${path}.fullLegibilityMs`, "reveal_budget", "Primary copy must become fully legible within 900ms.");
       (["mobile", "tablet", "desktop"] as const).forEach((viewport) => {
         const value = shot.viewports[viewport];
         if (

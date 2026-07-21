@@ -8,6 +8,14 @@ export {
   actOneShots,
 } from "./act-one-manifest";
 export {
+  ACT_TWO_DURATION_MS,
+  ACT_TWO_END_MS,
+  ACT_TWO_START_MS,
+  actTwoDefinition,
+  actTwoScenes,
+  actTwoShots,
+} from "./act-two-manifest";
+export {
   PROLOGUE_DURATION_MS,
   prologueManifest,
   prologueShots,

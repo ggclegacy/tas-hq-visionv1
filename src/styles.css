@@ -416,6 +416,54 @@ button:disabled {
     linear-gradient(110deg, #050706, #0b0f0d 52%, #020302);
 }
 
+[class*="shot--act2-"] .cinema-architecture {
+  inset: 0 -16%;
+}
+[class*="shot--act2-"] .cinema-architecture i:nth-child(2) {
+  box-shadow:
+    10vw 2vh 0 rgb(77 125 95 / 5%),
+    20vw -2vh 0 rgb(209 186 130 / 4%);
+}
+.shot--act2-knowledge-distance .cinema-light,
+.shot--act2-knowledge-scatter .cinema-light {
+  background: repeating-linear-gradient(
+    104deg,
+    transparent 0 12%,
+    rgb(76 137 99 / 14%) 13% 14%,
+    transparent 15% 25%
+  );
+}
+.shot--act2-training-transfer .cinema-architecture i {
+  border-right-color: rgb(209 186 130 / 24%);
+}
+.shot--act2-leadership-relay .cinema-light {
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0 17%,
+    rgb(255 246 220 / 10%) 18% 19%,
+    transparent 20% 31%
+  );
+}
+.shot--act2-communication-paths .cinema-architecture {
+  opacity: calc(0.42 + var(--shot-progress) * 0.28);
+  transform: perspective(900px) skewX(-3deg);
+}
+.shot--act2-standards-scale .cinema-architecture {
+  border-top: 1px solid rgb(209 186 130 / 25%);
+}
+.shot--act2-growth-safeguard .cinema-camera {
+  --camera-x: 0vw;
+  --camera-y: 0vh;
+}
+.shot--act2-forward-question .cinema-light {
+  opacity: calc(0.25 + var(--shot-progress) * 0.35);
+}
+.shot--act2-vision-threshold .cinema-field {
+  background:
+    radial-gradient(ellipse at 68% 45%, rgb(56 94 71 / 15%), transparent 27%),
+    linear-gradient(116deg, #040605, #0c110e 55%, #030403);
+}
+
 .cinema-caption {
   position: absolute;
   z-index: 20;

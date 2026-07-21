@@ -96,8 +96,12 @@ describe("Prologue and Act I stage integration", () => {
     expect(screen.getByText("Knowledge")).toBeInTheDocument();
     fireEvent.change(seek, { target: { value: "95000" } });
     expect(screen.getByText("People")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "136000" } });
-    expect(screen.getByText("The Challenge")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "150000" } });
+    expect(screen.getByText("Knowledge")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "185000" } });
+    expect(screen.getByText("Communication")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "226000" } });
+    expect(screen.getByText("The Vision")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Replay Experience" }),
     ).toBeEnabled();

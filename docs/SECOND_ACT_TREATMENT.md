@@ -1,6 +1,6 @@
 # Second Act Treatment — Carried Forward
 
-Status: delegated and authorized by the project owner on 2026-07-21.
+Status: historical conceptual source. `Carried Forward`, its screen-era timing, and `The Future Standard` boundary are superseded by `ACT_II_THE_CHALLENGE_CINEMATIC_TREATMENT.md`.
 
 ## Executive contract
 

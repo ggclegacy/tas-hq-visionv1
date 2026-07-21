@@ -128,6 +128,42 @@ Phase status: **Cinematic Production Foundation and Prologue vertical slice impl
 
 Phase status: **Phase 2 Act I implemented; Neil's subjective visual inspection pending**
 
+## Phase 3 — Act II: The Challenge
+
+### Prompt 1 — Audit and reconciliation
+
+- Status: Complete (2026-07-21). Added `ACT_II_RECONCILIATION.md`; clean baseline passed format/types/lint, 50 tests, and build. Preserved Prologue `0–54000ms` and Act I `54000–136000ms`; superseded `Carried Forward` and `The Future Standard`. Next: Prompt 2.
+
+### Prompt 2 — Definitive treatment and manifest
+
+- Status: Complete (2026-07-21). Added the definitive ten-shot, 90-second treatment and one Act II manifest from `136000–226000ms`. Shots carry authorized copy, universal conceptual classification, three viewports, all tiers, reduced motion, accessibility meaning, and one `Act III / The Vision` threshold. Next: Prompt 3.
+
+### Prompt 3 — Controlled-complexity environment
+
+- Status: Complete (2026-07-21). Added bounded path division, depth multiplication, repeated signals, controlled density, occlusion, and final pattern reveal through existing CSS/DOM primitives. No data visualization, WebGL, random system, dependency, or independent loop. Next: Prompt 4.
+
+### Prompt 4 — Expansion, Knowledge, and Training
+
+- Status: Complete (2026-07-21). Act I architecture expands without reset; green light distributes across depth and gold standard edges repeat across distance. Exact copy remains conceptual; no employee, facility, error, document, metric, or product content. Next: Prompt 5.
+
+### Prompt 5 — Leadership and Communication
+
+- Status: Complete (2026-07-21). Responsible ivory guidance repeats through changing contexts; valid communication paths multiply through composition rather than app/channel mockups. Deterministic viewport/tier/reduced-motion state remains intact. Next: Prompt 6.
+
+### Prompt 6 — Standards, synthesis, Vision threshold
+
+- Status: Complete (2026-07-21). Gold alignment remains intact at greater scale; the culture safeguard and growth-complexity language reveal one understandable pattern; the closing question creates possibility and holds `Act III / The Vision` without solution content. Next: Prompt 7.
+
+### Prompt 7 — Hardening
+
+- Status: Complete (2026-07-21). Transport, cleanup, silent/fullscreen recovery, viewports, tiers, reduced motion, semantics, focus, bundle, dependencies, conceptual safety, secrets, architecture, debug exclusion, and protected assets audited. Final bundle: JS 228.76 kB / 71.27 kB gzip and CSS 13.22 kB / 4.07 kB gzip; versus Phase 2 this adds 4.06/1.07 kB JS and 1.09/0.31 kB CSS. Dependency audit reports 0 vulnerabilities and HTTP smoke returns 200. Final audio remains replaceable and unloaded. Browser screenshot backend remains unavailable; automated/static evidence and HTTP smoke are used. Next: Prompt 8.
+
+### Prompt 8 — Final audit and handoff
+
+- Status: Complete (2026-07-21). One canonical Challenge treatment, manifest, renderer path, and timeline remain. Historical `SECOND_ACT_TREATMENT.md` is labeled superseded. Final validation passed: formatting, strict types, zero-warning lint, 60 tests, build, dependency/secret/architecture/conceptual scans, manifest continuity and unique IDs, default-route diagnostic exclusion, logo byte/hash integrity, diff hygiene, Git review, and HTTP smoke. Documentation records natural-growth framing, no-company-data policy, timing preservation, viewport/tier/motion behavior, older-Mac constraints, debug inspection, deferred media, and Neil's ownership of subjective acceptance. No commit, push, deployment, Act III implementation, or next-phase document was created.
+
+Phase status: **Phase 3 Act II implemented; Neil's subjective visual inspection pending**
+
 ## Project identity
 
 - Product: TAS HQ Executive Vision Experience

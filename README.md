@@ -1,6 +1,6 @@
 # TAS HQ Executive Vision Experience
 
-A directed executive cinematic experience. The default route combines a 54-second shot-driven Prologue and 82-second Act I on one deterministic timeline.
+A directed executive cinematic experience. The default route combines a 54-second Prologue, 82-second Act I, and 90-second Act II on one deterministic timeline.
 
 ## Setup
 
@@ -27,4 +27,4 @@ The default route opens the executive Prologue launch. Append `?debug` during lo
 
 ## Phase boundary
 
-Act I ends on an intentional `Act II` / `The Challenge` hold. Act II and later acts, final Onyx narration and ambience, product demonstrations, the closing sequence, and exploration mode are not part of the runtime. Pending audio paths are metadata hooks and are not loaded.
+Act II ends on an intentional `Act III` / `The Vision` hold. Act III and later acts, final Onyx narration and ambience, product demonstrations, the closing sequence, and exploration mode are not part of the runtime. Pending audio paths are metadata hooks and are not loaded.
