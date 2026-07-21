@@ -1,6 +1,6 @@
 # First Act Treatment — The Standard
 
-Status: delegated and authorized by the project owner on 2026-07-21.
+Status: historical conceptual source. Its screen-era visual direction and 60-second timing are superseded by `ACT_I_THE_STANDARD_CINEMATIC_TREATMENT.md`; valid approved themes remain preserved.
 
 ## Executive contract
 

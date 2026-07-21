@@ -2,7 +2,131 @@
 
 Last updated: 2026-07-21
 
-Phase status: **Phases 1–4 implemented; project-owner manual visual acceptance pending for Prompts 8**
+## Cinematic Production Foundation — Prompt 1
+
+- Status: Complete (2026-07-21)
+- Outcome: audited the repository, established the cinematic production contract, recorded the automated and bundle baseline, and migrated this canonical status record from the repository root.
+- Files: moved `BUILD_STATUS.md` to `docs/BUILD_STATUS.md`; added `docs/CINEMATIC_PRODUCTION_ARCHITECTURE.md`; updated `README.md` and `CONTRIBUTING.md` references.
+- Checks: `npm run format:check`, `npm run typecheck`, `npm run lint`, `npm test` (42 passed), and `npm run build` passed. Baseline JS is 214.78 kB / 67.12 kB gzip; CSS is 10.08 kB / 2.96 kB gzip. Both root/public logo SHA-256 pairs match.
+- Decisions: preserve the Director and pure resolver; supersede the centered scene-as-screen renderer; use a manifest → snapshot → resolved shot → layered stage dependency direction.
+- Performance/accessibility: retained the dependency-light stack, silent path, semantic copy, reduced motion, and viewport-specific composition requirement.
+- Limitations: no subjective visual acceptance is claimed; the current visible experience is intentionally unchanged at this gate. One pre-existing untracked authorized build-sequence document was preserved.
+- Next: Prompt 2 — Extend authored contracts from scenes to deterministic shots.
+
+## Cinematic Production Foundation — Prompt 2
+
+- Status: Complete (2026-07-21)
+- Outcome: added declarative shot, layer, camera, lighting, transition, viewport, quality, fallback, and accessibility contracts; validation and pure timestamp resolution now reconstruct shot state.
+- Files: updated presentation contracts, validator, resolver, Prologue manifest exports, and resolver tests.
+- Checks: strict typecheck passed; focused resolver and full-suite results are recorded at the next consolidated quality gate.
+- Decisions: shots remain data-only children of scenes; viewport and reduced-motion changes resolve without a second clock; legacy scene manifests remain compatible through optional shot data.
+- Performance/accessibility: tier filtering occurs before rendering; meaningful layers require descriptions; nonessential layers must hide cleanly; reduced motion resolves a stable camera.
+- Limitations: the existing visual renderer has not yet consumed shot state.
+- Next: Prompt 3 — Build the layered cinematic stage and viewport composition model.
+
+## Cinematic Production Foundation — Prompt 3
+
+- Status: Complete (2026-07-21)
+- Outcome: replaced the screen renderer with a reusable seven-plane cinematic stage, deterministic camera composition, authored viewport profiles, and a debug-only shot inspector.
+- Files: rebuilt `src/stage/RuntimeStage.tsx` and `src/styles.css`; scoped the browser Director to the Prologue proof slice.
+- Checks: component, resolver, and complete quality results are consolidated after visual-language integration.
+- Decisions: the DOM remains a layered 2.5D compositor rather than a speculative 3D engine; debug override state changes rendering inputs but never canonical time.
+- Performance/accessibility: layers use bounded transforms and opacity; meaningful subject/copy remain semantic; decorative planes are hidden; logo aspect ratios remain intact; mobile uses a separate vertical composition.
+- Limitations: browser screenshot evidence remains pending the hardening prompt.
+- Next: Prompt 4 — Establish the environment, lighting, material, and motion language.
+
+## Cinematic Production Foundation — Prompt 4
+
+- Status: Complete (2026-07-21)
+- Outcome: established deterministic obsidian/graphite architecture, green and gold light, material passes, parallax, masking, occlusion, precision-lock, deliberate holds, and tiered atmosphere using platform CSS only.
+- Files: cinematic vocabulary is implemented in `src/styles.css` and driven exclusively by resolved numeric shot state.
+- Checks: source safeguards and full quality results are consolidated at the next gate.
+- Decisions: no dependency or WebGL layer was necessary; fade/scale is not the dominant transition language; no random or perpetual effect was introduced.
+- Performance/accessibility: essential removes atmosphere/foreground work, enhanced removes foreground work, reduced motion removes spatial transforms and light travel, and inactive shots do not render.
+- Limitations: material depth is intentionally suggestive 2.5D composition, not literal 3D geometry.
+- Next: Prompt 5 — Re-author the Prologue as a directed shot sequence.
+
+## Cinematic Production Foundation — Prompt 5
+
+- Status: Complete (2026-07-21)
+- Outcome: re-authored the approved 54-second Prologue as five continuous directed shots and documented exact intent, framing, layers, light, motion, viewport, tier, reduced-motion, caption, and transition behavior.
+- Files: updated `src/presentation/prologue-manifest.ts`, exports, validation/resolver tests, and `docs/PROLOGUE_TREATMENT.md`.
+- Checks: validation accepts the continuous shot manifest; boundary, mid-shot, backward-seek, viewport, tier, reduced-motion, and completion-hold tests are included.
+- Decisions: preserve exact copy and timing; create dimensional presentation around unmodified raster marks; retain silent completion; stop at the truthful Act I threshold.
+- Performance/accessibility: only the active shot's tier-filtered layers render; all meaningful layers include descriptions and copy remains semantic.
+- Limitations: final Onyx narration and approved ambience remain pending and are not loaded.
+- Next: Prompt 6 — Implement the upgraded Prologue vertical slice.
+
+## Cinematic Production Foundation — Prompt 6
+
+- Status: Complete (2026-07-21)
+- Outcome: implemented the five-shot Prologue through the layered stage and existing Director, including continuous environment, motivated transitions, asymmetric framing, semantic typography, final hold, and executive transport controls.
+- Files: completed `src/stage/RuntimeStage.tsx`, `src/styles.css`, `src/stage/createBrowserDirector.ts`, and stage integration tests.
+- Checks: 49 tests passed and production build passed; critical shot seeks, pause/recovery, captions, fullscreen denial, completion, and replay are covered.
+- Decisions: the default runtime contains only the authorized Prologue proof slice; previous Act I/II conceptual manifests remain historical data but are not played.
+- Performance/accessibility: the animation-frame adapter exists only while playing and cleans up on state change; default route has no inspector; semantic logos/copy, captions, focus, silent fallback, and portrait layout remain intact.
+- Limitations: final audio remains pending; no subjective visual approval is claimed.
+- Next: Prompt 7 — Performance, resilience, responsive, and accessibility hardening.
+
+## Cinematic Production Foundation — Prompt 7
+
+- Status: Complete (2026-07-21)
+- Outcome: audited bundle, loops/listeners, image handling, compositing, viewport overflow, tiers, reduced motion, keyboard/focus, captions, recovery, arbitrary transport, secrets, dependencies, architecture, and logo integrity.
+- Files: hardened stage/tests and recorded evidence in documentation.
+- Checks: JS 222.71 kB / 69.61 kB gzip (+7.93/+2.49 kB); CSS 11.40 kB / 3.55 kB gzip (+1.32/+0.59 kB). `npm audit --audit-level=high` reports 0 vulnerabilities. HTTP default-route smoke returned 200. Secret scan, prohibited-architecture scan, `git diff --check`, and byte/SHA-256 logo comparisons passed.
+- Decisions: keep the dependency-free 2.5D system; use tier/viewport-specific fallbacks instead of lowering the full composition.
+- Performance/accessibility: no independent timers, random systems, canvas, video decoder, or unbounded effect; essential/reduced motion sharply reduce compositing; portrait/tablet/desktop and all tiers are resolver-tested.
+- Limitations: the in-app browser backend reported no browser available, so screenshot-based visual evidence could not be produced. Component/resolver tests, static audits, build output, and HTTP smoke checks were used instead.
+- Next: Prompt 8 — Final audit, documentation, and phase handoff.
+
+## Cinematic Production Foundation — Prompt 8
+
+- Status: Complete (2026-07-21)
+- Outcome: audited all eight gates, removed the obsolete screen renderer, documented shot authoring and reuse rules, reconciled the default Prologue boundary, and prepared the uncommitted phase handoff.
+- Files: updated `README.md`, `CONTRIBUTING.md`, `docs/ARCHITECTURE.md`, `docs/PROLOGUE_TREATMENT.md`, and the canonical `docs/BUILD_STATUS.md`; added `docs/CINEMATIC_PRODUCTION_ARCHITECTURE.md` and `docs/SHOT_AUTHORING.md`.
+- Checks: `npm run format:check`, `npm run typecheck`, `npm run lint`, `npm test` (49 passed), `npm run build`, and `npm audit --audit-level=high` (0 vulnerabilities) passed. Secret, prohibited-timer/routing/randomness, debug-exposure, logo byte/hash, `git diff --check`, root-logo diff, Git status, and HTTP 200 smoke checks passed.
+- Decisions: future acts must reuse the shot contracts and layered stage through the Director; historical scene-era build records remain for provenance but the old centered direction is explicitly superseded.
+- Performance/accessibility: final bundle remains dependency-light; tier, viewport, reduced-motion, silent, captions, keyboard, transport, interruption, and fullscreen-denial paths remain covered.
+- Limitations: browser screenshot automation was unavailable, final Onyx/audio assets remain pending, and Neil's subjective visual inspection has not yet occurred. Two untracked build-sequence documents present during execution were preserved without modification.
+- Next: Neil's visual inspection, followed by the separately authored next-phase sequence. No commit, push, deploy, or later-act implementation was performed.
+
+Phase status: **Cinematic Production Foundation and Prologue vertical slice implemented; Neil's subjective visual inspection pending**
+
+## Phase 2 — Act I: The Standard
+
+### Prompt 1 — Audit and reconciliation
+
+- Status: Complete (2026-07-21). Added `docs/ACT_I_RECONCILIATION.md`; baseline format/types/lint, 49 tests, build, bundle, Git, and logo integrity passed. Canonical range selected: `54000–136000ms`. Historical four-screen Act I is superseded, not duplicated. Next: Prompt 2.
+
+### Prompt 2 — Definitive treatment and manifest
+
+- Status: Complete (2026-07-21). Added the definitive eight-shot treatment and `act-one-manifest.ts`; approved copy, absolute timing, continuous coverage, viewport profiles, tiers, reduced motion, accessibility meaning, and inert Act II threshold are validated. No claims or external assets added. Next: Prompt 3.
+
+### Prompt 3 — Environment and continuity
+
+- Status: Complete (2026-07-21). Extended the existing field, architecture, bounded light, material, occlusion, and portrait primitives for Act I; all state remains resolved from canonical time. No WebGL, dependency, random system, or new loop. Next: Prompt 4.
+
+### Prompt 4 — Threshold, recognition, and Trust
+
+- Status: Complete (2026-07-21). The Prologue threshold flows directly into recognition and Trust shots using the same world, exact approved language, semantic copy, and viewport/tier/motion reconstruction. Next: Prompt 5.
+
+### Prompt 5 — Knowledge and Culture
+
+- Status: Complete (2026-07-21). Knowledge uses one bounded green continuity channel; Culture holds against aligning graphite structure. No product, policy, dashboard, facility, or generic pharmacy content appears. Next: Prompt 6.
+
+### Prompt 6 — People, Leadership, synthesis, threshold
+
+- Status: Complete (2026-07-21). Human-scale apertures remain abstract; Leadership uses restrained stewardship framing; synthesis aligns prior material systems; completion holds `Act II / The Challenge` truthfully. End-to-end seek and replay tests cover the sequence. Next: Prompt 7.
+
+### Prompt 7 — Hardening
+
+- Status: Complete (2026-07-21). Transport, cleanup, captions, silent/fullscreen recovery, viewports, tiers, reduced motion, bundle, dependencies, secrets, architecture, and protected assets audited. Final bundle: JS 224.70 kB / 70.20 kB gzip and CSS 12.13 kB / 3.76 kB gzip; versus Phase 1 this adds 1.99/0.59 kB JS and 0.73/0.21 kB CSS. `npm audit --audit-level=high` reports 0 vulnerabilities; HTTP default-route smoke returned 200; secret/prohibited-architecture scans and logo byte/hash checks passed. Final audio hooks remain replaceable metadata; no audio loaded. Browser screenshot backend unavailable; automated/static evidence and HTTP smoke used. Next: Prompt 8.
+
+### Prompt 8 — Final audit and handoff
+
+- Status: Complete (2026-07-21). One canonical production Act I and timeline remain; historical treatment is labeled superseded; documentation and tests cover authoring, continuity, debug inspection, older-Mac constraints, mobile composition, and deferred assets. Final checks passed: formatting, strict typecheck, zero-warning lint, 50 tests, production build, dependency audit, secret/architecture scans, manifest continuity and approved-copy tests, logo integrity, diff hygiene, Git review, default-route debug exclusion test, and HTTP smoke. Neil retains subjective visual acceptance. No commit, push, deployment, Act II content, or next build document was created.
+
+Phase status: **Phase 2 Act I implemented; Neil's subjective visual inspection pending**
 
 ## Project identity
 

@@ -1,5 +1,17 @@
 export { foundationManifest } from "./sample-manifest";
-export { PROLOGUE_DURATION_MS, prologueManifest } from "./prologue-manifest";
+export {
+  ACT_ONE_DURATION_MS,
+  ACT_ONE_END_MS,
+  ACT_ONE_START_MS,
+  actOneDefinition,
+  actOneScenes,
+  actOneShots,
+} from "./act-one-manifest";
+export {
+  PROLOGUE_DURATION_MS,
+  prologueManifest,
+  prologueShots,
+} from "./prologue-manifest";
 export {
   PRODUCTION_DURATION_MS,
   productionManifest,
@@ -26,7 +38,13 @@ export type {
   QualityTier,
   ReducedMotionAlternative,
   SceneDefinition,
+  ShotCameraState,
+  ShotDefinition,
+  ShotLayerDefinition,
+  ShotLightingState,
+  ShotViewportOverride,
   TransitionDefinition,
   ValidationIssue,
   ValidationResult,
+  ViewportClass,
 } from "./types";

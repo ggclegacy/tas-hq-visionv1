@@ -26,6 +26,64 @@ function snapshot(timeMs: number): DirectorSnapshot {
 }
 
 describe("resolvePresentationFrame", () => {
+  it.each(["mobile", "tablet", "desktop"] as const)(
+    "resolves deterministic %s shot composition",
+    (viewport) => {
+      const frame = resolvePresentationFrame(
+        prologueManifest,
+        snapshot(9_000),
+        { ...options, viewport },
+      );
+      expect(frame.shot?.shot.id).toBe("shot-gac-credit");
+      expect(frame.shot?.viewport).toBe(viewport);
+      expect(frame.shot?.phase).toBe("hold");
+    },
+  );
+
+  it.each(["essential", "enhanced", "cinematic"] as const)(
+    "filters layers for the %s tier",
+    (quality) => {
+      const frame = resolvePresentationFrame(
+        prologueManifest,
+        snapshot(30_000),
+        { ...options, quality },
+      );
+      expect(frame.shot?.layers.some((layer) => layer.id === "world")).toBe(
+        true,
+      );
+      expect(frame.shot?.layers.some((layer) => layer.id === "occlusion")).toBe(
+        quality === "cinematic",
+      );
+    },
+  );
+
+  it("reconstructs mid-shot, backward seek, reduced motion, and completion hold", () => {
+    const middle = resolvePresentationFrame(
+      prologueManifest,
+      snapshot(20_000),
+      { ...options, viewport: "desktop" },
+    );
+    const backward = resolvePresentationFrame(
+      prologueManifest,
+      snapshot(6_000),
+      { ...options, viewport: "mobile" },
+    );
+    const reduced = resolvePresentationFrame(
+      prologueManifest,
+      snapshot(20_000),
+      { ...options, reducedMotion: true },
+    );
+    const complete = resolvePresentationFrame(
+      prologueManifest,
+      snapshot(54_000),
+      options,
+    );
+    expect(middle.shot?.shot.id).toBe("shot-dedication");
+    expect(backward.shot?.shot.id).toBe("shot-gac-credit");
+    expect(reduced.shot?.camera.driftX).toBe(0);
+    expect(complete.shot?.shot.id).toBe("shot-standard-threshold");
+    expect(complete.shot?.progress).toBe(1);
+  });
   it.each([
     [0, "opening-stillness"],
     [3_999, "opening-stillness"],

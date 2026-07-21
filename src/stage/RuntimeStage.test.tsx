@@ -36,7 +36,7 @@ function createDirector() {
   return { clock, director };
 }
 
-describe("Prologue stage integration", () => {
+describe("Prologue and Act I stage integration", () => {
   beforeEach(() => {
     vi.stubGlobal(
       "requestAnimationFrame",
@@ -61,15 +61,17 @@ describe("Prologue stage integration", () => {
     render(<RuntimeStage director={director} />);
 
     expect(screen.getByRole("heading", { name: "TAS HQ" })).toBeInTheDocument();
-    expect(screen.queryByText("Development controls")).not.toBeInTheDocument();
+    expect(screen.queryByText("Shot inspector")).not.toBeInTheDocument();
     await user.click(
       screen.getByRole("button", { name: "Begin the Presentation" }),
     );
     expect(director.getSnapshot().state).toBe("playing");
-    expect(screen.getByLabelText("TAS HQ Prologue")).toBeInTheDocument();
+    expect(
+      screen.getByLabelText("TAS HQ Executive Vision Experience"),
+    ).toBeInTheDocument();
   });
 
-  it("reconstructs Prologue, both acts, and the final threshold after seeks", async () => {
+  it("reconstructs Prologue, Act I, and the final threshold after seeks", async () => {
     const user = userEvent.setup();
     const { director } = createDirector();
     render(<RuntimeStage director={director} debug />);
@@ -90,19 +92,14 @@ describe("Prologue stage integration", () => {
     ).toBeInTheDocument();
     fireEvent.change(seek, { target: { value: "54000" } });
     expect(screen.getByText("The Standard")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "75000" } });
+    expect(screen.getByText("Knowledge")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "95000" } });
+    expect(screen.getByText("People")).toBeInTheDocument();
+    fireEvent.change(seek, { target: { value: "136000" } });
+    expect(screen.getByText("The Challenge")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "More than systems" }),
-    ).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "114000" } });
-    expect(
-      screen.getByRole("heading", { name: "Carried Forward" }),
-    ).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "174000" } });
-    expect(
-      screen.getByRole("heading", { name: "The Future Standard" }),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByRole("button", { name: "Replay Prologue" }),
+      screen.getByRole("button", { name: "Replay Experience" }),
     ).toBeEnabled();
   });
 

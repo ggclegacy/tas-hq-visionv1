@@ -322,5 +322,105 @@ export function validateManifest(input: unknown): ValidationResult {
     });
   });
 
+  if (manifest.shots) {
+    validateNoOverlap(manifest.shots, "shots");
+    const sceneIds = new Set(
+      manifest.acts.flatMap((act) =>
+        act.chapters.flatMap((chapter) =>
+          chapter.scenes.map((scene) => scene.id),
+        ),
+      ),
+    );
+    const sortedShots = [...manifest.shots].sort(
+      (a, b) => a.startMs - b.startMs,
+    );
+    sortedShots.forEach((shot, shotIndex) => {
+      const path = `shots[${shotIndex}]`;
+      registerId(shot.id, path);
+      validateRange(shot, path, {
+        startMs: 0,
+        endMs: manifest.metadata.durationMs,
+      });
+      if (!sceneIds.has(shot.parentSceneId))
+        issue(
+          `${path}.parentSceneId`,
+          "missing_reference",
+          `Scene "${shot.parentSceneId}" does not exist.`,
+        );
+      if (
+        shot.entranceEndMs < shot.startMs ||
+        shot.entranceEndMs > shot.exitStartMs ||
+        shot.exitStartMs > shot.endMs
+      )
+        issue(
+          path,
+          "invalid_shot_phases",
+          "Shot entrance, hold, and exit boundaries must be ordered inside the shot.",
+        );
+      if (
+        shot.transitionOut.durationMs < 0 ||
+        shot.transitionOut.durationMs > shot.endMs - shot.exitStartMs
+      )
+        issue(
+          `${path}.transitionOut`,
+          "impossible_transition",
+          "Transition duration must fit within the shot exit phase.",
+        );
+      (["mobile", "tablet", "desktop"] as const).forEach((viewport) => {
+        const value = shot.viewports[viewport];
+        if (
+          !value ||
+          (value.motionIntensity !== undefined &&
+            (value.motionIntensity < 0 || value.motionIntensity > 1))
+        )
+          issue(
+            `${path}.viewports.${viewport}`,
+            "invalid_viewport_override",
+            "Every viewport requires an override and motionIntensity must be between 0 and 1.",
+          );
+      });
+      const layerIds = new Set<string>();
+      shot.layers.forEach((layer, layerIndex) => {
+        const layerPath = `${path}.layers[${layerIndex}]`;
+        if (layerIds.has(layer.id))
+          issue(
+            layerPath,
+            "duplicate_layer_id",
+            `Layer "${layer.id}" is duplicated within the shot.`,
+          );
+        layerIds.add(layer.id);
+        if (layer.assetId && !assetIds.has(layer.assetId))
+          issue(
+            `${layerPath}.assetId`,
+            "missing_reference",
+            `Asset "${layer.assetId}" does not exist.`,
+          );
+        if (!layer.decorative && !layer.meaning)
+          issue(
+            `${layerPath}.meaning`,
+            "missing_accessibility_meaning",
+            "Meaningful layers require an accessibility description.",
+          );
+        if (
+          !layer.qualityTiers.includes("essential") &&
+          layer.fallback !== "hide"
+        )
+          issue(
+            `${layerPath}.qualityTiers`,
+            "quality_tier_violation",
+            "A nonessential layer must use the hide fallback.",
+          );
+      });
+    });
+    for (let index = 1; index < sortedShots.length; index += 1) {
+      if (sortedShots[index - 1]?.endMs !== sortedShots[index]?.startMs)
+        issue(
+          "shots",
+          "shot_continuity_gap",
+          "Authored shots must form a continuous timeline.",
+        );
+    }
+  }
+
   return issues.length === 0 ? { ok: true, manifest } : { ok: false, issues };
 }

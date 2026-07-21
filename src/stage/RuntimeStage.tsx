@@ -12,6 +12,8 @@ import {
   productionManifest,
   resolvePresentationFrame,
   type QualityTier,
+  type ShotLayerDefinition,
+  type ViewportClass,
 } from "../presentation";
 
 interface RuntimeStageProps {
@@ -19,19 +21,24 @@ interface RuntimeStageProps {
   readonly debug?: boolean;
 }
 
-function useReducedMotion(): boolean {
-  const [reduced, setReduced] = useState(
-    () =>
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false,
+function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(
+    () => window.matchMedia?.(query).matches ?? false,
   );
   useEffect(() => {
-    const query = window.matchMedia?.("(prefers-reduced-motion: reduce)");
-    if (!query) return;
-    const update = () => setReduced(query.matches);
-    query.addEventListener?.("change", update);
-    return () => query.removeEventListener?.("change", update);
-  }, []);
-  return reduced;
+    const media = window.matchMedia?.(query);
+    if (!media) return;
+    const update = () => setMatches(media.matches);
+    media.addEventListener?.("change", update);
+    return () => media.removeEventListener?.("change", update);
+  }, [query]);
+  return matches;
+}
+
+function useViewportClass(): ViewportClass {
+  const mobile = useMediaQuery("(max-width: 39.99rem)");
+  const tablet = useMediaQuery("(min-width: 40rem) and (max-width: 74.99rem)");
+  return mobile ? "mobile" : tablet ? "tablet" : "desktop";
 }
 
 export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
@@ -40,47 +47,54 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
     director.getSnapshot,
     director.getSnapshot,
   );
-  const reducedMotion = useReducedMotion();
+  const systemReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
+  const detectedViewport = useViewportClass();
   const [captionsEnabled, setCaptionsEnabled] = useState(false);
   const [quality, setQuality] = useState<QualityTier>("cinematic");
+  const [debugViewport, setDebugViewport] = useState<ViewportClass | null>(
+    null,
+  );
+  const [debugReduced, setDebugReduced] = useState(false);
   const [fullscreenMessage, setFullscreenMessage] = useState("");
+  const viewport = debugViewport ?? detectedViewport;
+  const reducedMotion = systemReducedMotion || debugReduced;
   const frame = useMemo(
     () =>
       resolvePresentationFrame(productionManifest, snapshot, {
         quality,
         reducedMotion,
         captionsEnabled,
+        viewport,
       }),
-    [captionsEnabled, quality, reducedMotion, snapshot],
+    [captionsEnabled, quality, reducedMotion, snapshot, viewport],
   );
 
   useEffect(() => {
     if (snapshot.state !== "playing") return;
-    let frameRequest = 0;
+    let request = 0;
     const update = () => {
       if (director.getSnapshot().state !== "playing") return;
       try {
         director.tick();
-        frameRequest = requestAnimationFrame(update);
+        request = requestAnimationFrame(update);
       } catch (error) {
         director.fail(error);
       }
     };
-    frameRequest = requestAnimationFrame(update);
-    return () => cancelAnimationFrame(frameRequest);
+    request = requestAnimationFrame(update);
+    return () => cancelAnimationFrame(request);
   }, [director, snapshot.state]);
 
   useEffect(() => {
-    const handleVisibility = () => {
+    const onVisibility = () => {
       if (
         document.visibilityState === "hidden" &&
         director.getSnapshot().state === "playing"
       )
         director.handleVisibilityInterruption();
     };
-    document.addEventListener("visibilitychange", handleVisibility);
-    return () =>
-      document.removeEventListener("visibilitychange", handleVisibility);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => document.removeEventListener("visibilitychange", onVisibility);
   }, [director]);
 
   async function begin() {
@@ -98,132 +112,140 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
 
   if (snapshot.state === "ready") {
     return (
-      <main className="prologue-launch" aria-labelledby="launch-title">
-        <div className="prologue-launch__aura" aria-hidden="true" />
-        <section className="prologue-launch__content">
+      <main className="cinema-launch" aria-labelledby="launch-title">
+        <div className="cinema-launch__vault" aria-hidden="true">
+          <i />
+          <i />
+          <i />
+        </div>
+        <section className="cinema-launch__content">
+          <span className="cinema-launch__rule" aria-hidden="true" />
+          <p className="cinema-eyebrow">
+            A Gent Ascend Collective Vision Experience
+          </p>
           <img
-            className="prologue-launch__mark"
             src={imageAssets.tasHqLogo.src}
             width={imageAssets.tasHqLogo.width}
             height={imageAssets.tasHqLogo.height}
             alt={imageAssets.tasHqLogo.accessibility.alt}
           />
-          <p className="prologue-kicker">An Executive Vision Experience</p>
           <h1 id="launch-title">TAS HQ</h1>
           <button
-            className="prologue-primary-action"
+            className="cinema-primary-action"
             type="button"
             onClick={() => void begin()}
           >
             Begin the Presentation
           </button>
-          <p className="prologue-launch__note">54 seconds · Sound optional</p>
+          <p className="cinema-launch__note">
+            2 minutes 16 seconds · Sound optional
+          </p>
           {fullscreenMessage && <p role="status">{fullscreenMessage}</p>}
         </section>
         {debug && (
-          <DebugControls
-            director={director}
-            snapshot={snapshot}
-            quality={quality}
-            setQuality={setQuality}
+          <ShotHarness
+            {...{
+              director,
+              snapshot,
+              quality,
+              setQuality,
+              debugViewport,
+              setDebugViewport,
+              debugReduced,
+              setDebugReduced,
+              frame,
+            }}
           />
         )}
       </main>
     );
   }
 
-  const transitionOpacity = frame.transition?.progress ?? 1;
+  const shot = frame.shot;
+  const camera = shot?.camera;
+  const profile = shot?.shot.viewports[viewport];
   const style = {
-    "--scene-progress": frame.sceneProgress,
-    "--transition-opacity": transitionOpacity,
+    "--camera-x": `${camera?.driftX ?? 0}vw`,
+    "--camera-y": `${camera?.driftY ?? 0}vh`,
+    "--camera-scale": camera?.scale ?? 1,
+    "--focal-x": `${camera?.focalX ?? 50}%`,
+    "--focal-y": `${camera?.focalY ?? 50}%`,
+    "--light-intensity": shot?.lighting.intensity ?? 0,
+    "--light-warmth": shot?.lighting.warmth ?? 0,
+    "--atmosphere": shot?.lighting.atmosphere ?? 0,
+    "--shot-progress": shot?.progress ?? 0,
+    "--transition-progress": shot?.transition.progress ?? 0,
+    "--text-width": `${profile?.textWidth ?? 48}%`,
+    "--safe-inset": `${profile?.safeInset ?? 4}vw`,
   } as CSSProperties;
 
   return (
     <main
-      className={`prologue-stage prologue-stage--${frame.scene?.kind ?? "empty"} quality--${quality}`}
+      className={`cinema-stage quality--${quality} viewport--${viewport} shot--${shot?.shot.id ?? "empty"} phase--${shot?.phase ?? "hold"} transition--${shot?.transition.kind ?? "cut"}`}
       style={style}
-      aria-label="TAS HQ Prologue"
+      aria-label="TAS HQ Executive Vision Experience"
+      data-shot-id={shot?.shot.id}
     >
-      <div className="prologue-stage__architecture" aria-hidden="true">
-        <span />
-        <span />
-        <span />
+      <div
+        className="cinema-camera"
+        style={{
+          transformOrigin: `${camera?.focalX ?? 50}% ${camera?.focalY ?? 50}%`,
+        }}
+      >
+        {(
+          [
+            "environment",
+            "architecture",
+            "atmosphere",
+            "subject",
+            "typography",
+            "foreground",
+          ] as const
+        ).map((plane) => (
+          <div
+            className={`cinema-plane cinema-plane--${plane}`}
+            key={plane}
+            aria-hidden={
+              [
+                "environment",
+                "architecture",
+                "atmosphere",
+                "foreground",
+              ].includes(plane)
+                ? true
+                : undefined
+            }
+          >
+            {shot?.layers
+              .filter((layer) => layer.plane === plane)
+              .map((layer) => (
+                <CinematicLayer
+                  key={layer.id}
+                  layer={layer}
+                  shotId={shot.shot.id}
+                />
+              ))}
+          </div>
+        ))}
       </div>
-      <SceneComposition
-        sceneId={frame.scene?.id ?? ""}
-        content={frame.scene?.content ?? []}
-        reducedMotion={reducedMotion}
-      />
-
       {frame.caption && (
-        <div className="prologue-caption" aria-live="off">
+        <div className="cinema-caption" aria-live="off">
           {frame.caption.text}
         </div>
       )}
-
-      <div className="prologue-controls" aria-label="Presentation controls">
-        {snapshot.state === "playing" && (
-          <button
-            type="button"
-            onClick={() => director.pause()}
-            aria-label="Pause presentation"
-          >
-            Ⅱ
-          </button>
-        )}
-        {snapshot.state === "paused" && (
-          <button
-            type="button"
-            onClick={() => director.resume()}
-            aria-label="Resume presentation"
-          >
-            ▶
-          </button>
-        )}
-        {snapshot.state === "interrupted" && (
-          <button
-            type="button"
-            onClick={() => director.recover()}
-            aria-label="Recover presentation"
-          >
-            Resume
-          </button>
-        )}
-        <button
-          type="button"
-          onClick={() => setCaptionsEnabled((value) => !value)}
-          aria-pressed={captionsEnabled}
-        >
-          Captions {captionsEnabled ? "on" : "off"}
-        </button>
-        <span
-          className="prologue-controls__audio"
-          aria-label="Audio unavailable; silent presentation mode"
-        >
-          Silent mode
-        </span>
-        {snapshot.state === "completed" && (
-          <button type="button" onClick={() => director.restart()}>
-            Replay Prologue
-          </button>
-        )}
-        {document.fullscreenElement && (
-          <button
-            type="button"
-            onClick={() => void document.exitFullscreen?.()}
-          >
-            Exit fullscreen
-          </button>
-        )}
-      </div>
-
+      <ExecutiveControls
+        snapshot={snapshot}
+        director={director}
+        captionsEnabled={captionsEnabled}
+        setCaptionsEnabled={setCaptionsEnabled}
+      />
       {snapshot.state === "interrupted" && (
-        <div className="prologue-notice" role="status">
+        <div className="cinema-notice" role="status">
           Playback paused while the presentation was out of view.
         </div>
       )}
       {snapshot.state === "error" && (
-        <div className="prologue-notice" role="alert">
+        <div className="cinema-notice" role="alert">
           {snapshot.error ?? "The presentation paused safely."}
           <button type="button" onClick={() => director.recover()}>
             Recover
@@ -231,87 +253,172 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
         </div>
       )}
       {debug && (
-        <DebugControls
-          director={director}
-          snapshot={snapshot}
-          quality={quality}
-          setQuality={setQuality}
+        <ShotHarness
+          {...{
+            director,
+            snapshot,
+            quality,
+            setQuality,
+            debugViewport,
+            setDebugViewport,
+            debugReduced,
+            setDebugReduced,
+            frame,
+          }}
         />
       )}
     </main>
   );
 }
 
-function SceneComposition({
-  sceneId,
-  content,
-  reducedMotion,
+function CinematicLayer({
+  layer,
+  shotId,
 }: {
-  readonly sceneId: string;
-  readonly content: readonly string[];
-  readonly reducedMotion: boolean;
+  readonly layer: ShotLayerDefinition;
+  readonly shotId: string;
 }) {
-  if (sceneId === "opening-stillness")
-    return <div className="prologue-stillness" aria-hidden="true" />;
-  const isGac = sceneId === "gac-presenting-credit";
-  const isTas = sceneId === "tas-hq-reveal" || sceneId === "act-one-handoff";
-  return (
-    <section
-      className="prologue-scene"
-      aria-labelledby={`${sceneId}-title`}
-      data-reduced-motion={reducedMotion || undefined}
-    >
-      {isGac && (
-        <img
-          className="prologue-logo prologue-logo--gac"
-          src={imageAssets.gacLogo.src}
-          width={imageAssets.gacLogo.width}
-          height={imageAssets.gacLogo.height}
-          alt={imageAssets.gacLogo.accessibility.alt}
-        />
-      )}
-      {isTas && (
-        <img
-          className="prologue-logo prologue-logo--tas"
-          src={imageAssets.tasHqLogo.src}
-          width={imageAssets.tasHqLogo.width}
-          height={imageAssets.tasHqLogo.height}
-          alt={imageAssets.tasHqLogo.accessibility.alt}
-        />
-      )}
-      <div className="prologue-copy">
-        {content.map((line, index) => {
-          const Heading = index === content.length - 1 ? "h1" : "p";
-          return (
-            <Heading
-              id={index === content.length - 1 ? `${sceneId}-title` : undefined}
-              className={`prologue-copy__line prologue-copy__line--${index + 1}`}
-              key={line}
-            >
-              {line}
-            </Heading>
-          );
-        })}
+  if (layer.kind === "field")
+    return <div className="cinema-field" data-layer={layer.id} />;
+  if (layer.kind === "architecture")
+    return (
+      <div className="cinema-architecture" data-layer={layer.id}>
+        <i />
+        <i />
+        <i />
+        <i />
       </div>
-    </section>
+    );
+  if (layer.kind === "light")
+    return <div className="cinema-light" data-layer={layer.id} />;
+  if (layer.kind === "occlusion")
+    return <div className="cinema-occlusion" data-layer={layer.id} />;
+  if (layer.kind === "image" && layer.assetId) {
+    const asset =
+      layer.assetId === "gac-logo"
+        ? imageAssets.gacLogo
+        : imageAssets.tasHqLogo;
+    return (
+      <div className="cinema-subject" data-layer={layer.id}>
+        <span aria-hidden="true" />
+        <img
+          src={asset.src}
+          width={asset.width}
+          height={asset.height}
+          alt={layer.meaning ?? asset.accessibility.alt}
+        />
+      </div>
+    );
+  }
+  if (layer.kind === "copy") {
+    return (
+      <div className="cinema-copy" data-layer={layer.id}>
+        {layer.content?.map((line, index) =>
+          index === layer.content!.length - 1 ? (
+            <h1 key={line} id={`${shotId}-title`}>
+              {line}
+            </h1>
+          ) : (
+            <p key={line}>{line}</p>
+          ),
+        )}
+      </div>
+    );
+  }
+  return null;
+}
+
+function ExecutiveControls({
+  snapshot,
+  director,
+  captionsEnabled,
+  setCaptionsEnabled,
+}: {
+  readonly snapshot: ReturnType<PresentationDirector["getSnapshot"]>;
+  readonly director: PresentationDirector;
+  readonly captionsEnabled: boolean;
+  readonly setCaptionsEnabled: (value: boolean) => void;
+}) {
+  return (
+    <div className="cinema-controls" aria-label="Presentation controls">
+      {snapshot.state === "playing" && (
+        <button
+          type="button"
+          onClick={() => director.pause()}
+          aria-label="Pause presentation"
+        >
+          Ⅱ
+        </button>
+      )}
+      {snapshot.state === "paused" && (
+        <button
+          type="button"
+          onClick={() => director.resume()}
+          aria-label="Resume presentation"
+        >
+          ▶
+        </button>
+      )}
+      {snapshot.state === "interrupted" && (
+        <button
+          type="button"
+          onClick={() => director.recover()}
+          aria-label="Recover presentation"
+        >
+          Resume
+        </button>
+      )}
+      <button
+        type="button"
+        onClick={() => setCaptionsEnabled(!captionsEnabled)}
+        aria-pressed={captionsEnabled}
+      >
+        Captions {captionsEnabled ? "on" : "off"}
+      </button>
+      <span
+        className="cinema-controls__audio"
+        aria-label="Audio unavailable; silent presentation mode"
+      >
+        Silent mode
+      </span>
+      {snapshot.state === "completed" && (
+        <button type="button" onClick={() => director.restart()}>
+          Replay Experience
+        </button>
+      )}
+      {document.fullscreenElement && (
+        <button type="button" onClick={() => void document.exitFullscreen?.()}>
+          Exit fullscreen
+        </button>
+      )}
+    </div>
   );
 }
 
-function DebugControls({
+function ShotHarness({
   director,
   snapshot,
   quality,
   setQuality,
+  debugViewport,
+  setDebugViewport,
+  debugReduced,
+  setDebugReduced,
+  frame,
 }: {
   readonly director: PresentationDirector;
   readonly snapshot: ReturnType<PresentationDirector["getSnapshot"]>;
   readonly quality: QualityTier;
   readonly setQuality: (quality: QualityTier) => void;
+  readonly debugViewport: ViewportClass | null;
+  readonly setDebugViewport: (viewport: ViewportClass | null) => void;
+  readonly debugReduced: boolean;
+  readonly setDebugReduced: (reduced: boolean) => void;
+  readonly frame: ReturnType<typeof resolvePresentationFrame>;
 }) {
-  const canSeek = snapshot.state !== "idle";
   return (
-    <fieldset className="prologue-debug">
-      <legend>Development controls</legend>
+    <fieldset className="shot-harness">
+      <legend>Shot inspector</legend>
       <label>
         Quality{" "}
         <select
@@ -326,6 +433,32 @@ function DebugControls({
         </select>
       </label>
       <label>
+        Viewport{" "}
+        <select
+          value={debugViewport ?? "auto"}
+          onChange={(event) =>
+            setDebugViewport(
+              event.currentTarget.value === "auto"
+                ? null
+                : (event.currentTarget.value as ViewportClass),
+            )
+          }
+        >
+          <option value="auto">Auto</option>
+          <option value="mobile">Mobile</option>
+          <option value="tablet">Tablet</option>
+          <option value="desktop">Desktop</option>
+        </select>
+      </label>
+      <label>
+        <input
+          type="checkbox"
+          checked={debugReduced}
+          onChange={(event) => setDebugReduced(event.currentTarget.checked)}
+        />{" "}
+        Reduced motion
+      </label>
+      <label>
         Seek{" "}
         <input
           aria-label="Seek"
@@ -334,12 +467,27 @@ function DebugControls({
           max={snapshot.durationMs}
           step="100"
           value={snapshot.timeMs}
-          disabled={!canSeek}
           onChange={(event) => director.seek(Number(event.currentTarget.value))}
         />
       </label>
+      <button
+        type="button"
+        onClick={() => director.skipChapter()}
+        disabled={snapshot.state === "completed"}
+      >
+        Skip chapter
+      </button>
       <output>
-        {(snapshot.timeMs / 1000).toFixed(1)}s · {snapshot.state}
+        {(snapshot.timeMs / 1000).toFixed(1)}s ·{" "}
+        {frame.shot?.shot.id ?? "launch"} ·{" "}
+        {frame.shot?.phase ?? snapshot.state}
+        <br />
+        camera{" "}
+        {frame.shot
+          ? `${frame.shot.camera.scale.toFixed(3)} / ${frame.shot.camera.focalX.toFixed(1)},${frame.shot.camera.focalY.toFixed(1)}`
+          : "—"}
+        <br />
+        layers {frame.shot?.layers.map((layer) => layer.id).join(", ") ?? "—"}
       </output>
     </fieldset>
   );

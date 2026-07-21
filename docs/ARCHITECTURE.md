@@ -42,3 +42,9 @@ The following patterns are prohibited:
 - coupling cinematic playback state to exploration navigation.
 
 Any browser, animation, or media clock is an injected adapter. It reports observations to the Director; it does not become the canonical authority.
+
+## Shot rendering
+
+The cinematic renderer extends scenes with declarative shots. The validated manifest flows through the Director snapshot and pure frame resolver before it reaches the stage. A resolved shot contains its local progress, entrance/hold/exit phase, camera, tier-filtered layers, lighting, transition, and active viewport profile. See [the production contract](CINEMATIC_PRODUCTION_ARCHITECTURE.md) and [shot authoring guide](SHOT_AUTHORING.md).
+
+The stage may use transforms, masks, opacity, or future imperative render adapters, but no renderer may infer narrative progression from an animation callback. Direct seek, replay, viewport changes, quality changes, and reduced-motion changes must reconstruct state from the same canonical timestamp.

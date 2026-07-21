@@ -2,7 +2,7 @@
 
 ## Preserve the foundation
 
-Read `BUILD_STATUS.md` and `docs/ARCHITECTURE.md` before changing the project. Extend public module boundaries; do not replace working systems or import private files across modules. Never copy the architecture, routing, global state, or application shell of a prior TAS HQ project.
+Read `docs/BUILD_STATUS.md` and `docs/ARCHITECTURE.md` before changing the project. Extend public module boundaries; do not replace working systems or import private files across modules. Never copy the architecture, routing, global state, or application shell of a prior TAS HQ project.
 
 ## Dependency and runtime rules
 
@@ -45,4 +45,4 @@ npm run test
 npm run build
 ```
 
-Update `BUILD_STATUS.md` honestly. Future prompts must preserve completed gates and remain within their stated phase.
+Update `docs/BUILD_STATUS.md` honestly. Future prompts must preserve completed gates and remain within their stated phase.

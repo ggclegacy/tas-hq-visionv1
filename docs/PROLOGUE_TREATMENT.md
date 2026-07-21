@@ -1,6 +1,20 @@
 # Prologue Creative Treatment
 
-Status: approved on 2026-07-21 for Phase 2 implementation.
+Status: approved copy and timing; original centered visual direction superseded on 2026-07-21 by the shot-driven treatment below.
+
+## Shot-driven production treatment
+
+The five shots occupy one continuous architectural world. Environment, structure, light, and foreground framing persist as a shared visual grammar while the focal subject and typography plane change. Exact state is reconstructed from canonical time.
+
+| Time        | Shot                      | Emotional objective and framing                                                                                                               | Layers and light                                                                                 | Motion and transition                                                                                               |
+| ----------- | ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- |
+| 00:00–00:04 | `shot-opening-scale`      | Establish quiet scale. A wide off-axis architectural field leaves the frame unresolved. Mobile uses a taller crop and lower text-safe region. | Obsidian field, distant graphite vaults, near-black foreground; minimal light.                   | Controlled settling push into a motivated light wipe. Reduced motion holds the complete field.                      |
+| 00:04–00:14 | `shot-gac-credit`         | Present GAC with restrained authority, mark left and credit embedded in negative space right.                                                 | Preserved GAC PNG, architecture, narrow dimensional-gold pass, ivory copy.                       | Slow precision push and material-light travel; precision lock into dedication.                                      |
+| 00:14–00:27 | `shot-dedication`         | Make the invitation private and consequential through asymmetric name placement rather than a centered list.                                  | Wide typography plane, balanced gold/green environment, foreground occlusion.                    | Lateral drift exposes names; architectural occlusion motivates entry into TAS HQ.                                   |
+| 00:27–00:43 | `shot-tas-entry`          | Cross into the TAS HQ world and resolve the emblem as a system presence.                                                                      | Preserved TAS HQ PNG, deeper green intelligence light, gold edge significance, ivory descriptor. | Macro-to-wide restraint, light-reveal around—not modification of—the mark, then precision lock.                     |
+| 00:43–00:54 | `shot-standard-threshold` | Hold at an intentional Act I threshold. The small emblem sits above an expansive title field.                                                 | Settled architecture, balanced internal illumination, TAS HQ mark and exact handoff copy.        | Movement resolves into stillness. Completion holds the exact final frame; reduced motion uses the same composition. |
+
+All viewports retain copy, timing, shot order, and meaning. Mobile moves the subject into the upper field and typography into a protected lower region; tablet compresses lateral depth; desktop uses the full asymmetric composition. Essential keeps architecture, subject, and copy; enhanced adds controlled light; cinematic adds the bounded foreground finish. Captions remain synchronized to existing narration metadata. Silence remains complete.
 
 ## Direction
 

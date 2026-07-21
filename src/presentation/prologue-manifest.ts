@@ -1,4 +1,8 @@
-import type { PresentationManifest, ReducedMotionAlternative } from "./types";
+import type {
+  PresentationManifest,
+  ReducedMotionAlternative,
+  ShotDefinition,
+} from "./types";
 
 const crossfade: ReducedMotionAlternative = {
   mode: "crossfade",
@@ -12,6 +16,245 @@ const staticState: ReducedMotionAlternative = {
 };
 
 export const PROLOGUE_DURATION_MS = 54_000;
+
+const tiers = ["essential", "enhanced", "cinematic"] as const;
+const camera = (
+  subject: string,
+  fromScale: number,
+  toScale: number,
+  driftX = 0,
+) => ({
+  from: {
+    focalSubject: subject,
+    focalX: 50,
+    focalY: 50,
+    scale: fromScale,
+    depth: 0.35,
+    driftX: 0,
+    driftY: 0,
+    lens: "wide" as const,
+  },
+  to: {
+    focalSubject: subject,
+    focalX: 50,
+    focalY: 50,
+    scale: toScale,
+    depth: 0.7,
+    driftX,
+    driftY: -0.35,
+    lens: "intimate" as const,
+  },
+});
+const viewports = {
+  mobile: {
+    focalX: 54,
+    focalY: 45,
+    textAlign: "start" as const,
+    textWidth: 78,
+    motionIntensity: 0.45,
+    safeInset: 6,
+  },
+  tablet: {
+    focalX: 50,
+    focalY: 48,
+    textAlign: "start" as const,
+    textWidth: 58,
+    motionIntensity: 0.72,
+    safeInset: 5,
+  },
+  desktop: {
+    focalX: 48,
+    focalY: 50,
+    textAlign: "start" as const,
+    textWidth: 42,
+    motionIntensity: 1,
+    safeInset: 4,
+  },
+};
+
+function authoredShot(
+  id: string,
+  parentSceneId: string,
+  intent: string,
+  startMs: number,
+  endMs: number,
+  content: readonly string[],
+  assetId?: "gac-logo" | "tas-hq-logo",
+  light: "darkness" | "gold" | "green" | "balanced" = "balanced",
+): ShotDefinition {
+  const shotCamera = camera(
+    assetId ?? "typography",
+    1.045,
+    1,
+    id.includes("dedication") ? -1.2 : 0.6,
+  );
+  return {
+    id,
+    parentSceneId,
+    intent,
+    startMs,
+    endMs,
+    camera: shotCamera,
+    layers: [
+      {
+        id: "world",
+        plane: "environment",
+        kind: "field",
+        decorative: true,
+        depth: 0,
+        qualityTiers: tiers,
+        fallback: "field",
+      },
+      {
+        id: "architecture",
+        plane: "architecture",
+        kind: "architecture",
+        decorative: true,
+        depth: 0.25,
+        qualityTiers: tiers,
+        fallback: "field",
+      },
+      {
+        id: "light",
+        plane: "atmosphere",
+        kind: "light",
+        decorative: true,
+        depth: 0.45,
+        qualityTiers: ["enhanced", "cinematic"],
+        fallback: "hide",
+      },
+      ...(assetId
+        ? [
+            {
+              id: "mark",
+              plane: "subject" as const,
+              kind: "image" as const,
+              assetId,
+              decorative: false,
+              meaning:
+                assetId === "gac-logo" ? "Gent Ascend Collective" : "TAS HQ",
+              depth: 0.68,
+              qualityTiers: tiers,
+              fallback: "copy" as const,
+            },
+          ]
+        : []),
+      ...(content.length
+        ? [
+            {
+              id: "copy",
+              plane: "typography" as const,
+              kind: "copy" as const,
+              content,
+              decorative: false,
+              meaning: content.join(". "),
+              depth: 0.78,
+              qualityTiers: tiers,
+              fallback: "copy" as const,
+            },
+          ]
+        : []),
+      {
+        id: "occlusion",
+        plane: "foreground",
+        kind: "occlusion",
+        decorative: true,
+        depth: 1,
+        qualityTiers: ["cinematic"],
+        fallback: "hide",
+      },
+    ],
+    lighting: {
+      from: {
+        key: startMs === 0 ? "darkness" : light,
+        intensity: startMs === 0 ? 0.05 : 0.35,
+        warmth: light === "gold" ? 0.8 : 0.35,
+        atmosphere: 0.2,
+      },
+      to: {
+        key: light,
+        intensity: light === "darkness" ? 0.12 : 0.72,
+        warmth: light === "gold" ? 0.9 : 0.45,
+        atmosphere: 0.62,
+      },
+    },
+    entranceEndMs: Math.min(startMs + 1_800, endMs),
+    exitStartMs: Math.max(endMs - 1_200, startMs),
+    transitionOut: {
+      kind:
+        id === "shot-opening-scale"
+          ? "light-wipe"
+          : id === "shot-dedication"
+            ? "occlusion"
+            : "precision-lock",
+      durationMs: Math.min(1_200, endMs - startMs),
+    },
+    viewports,
+    reducedMotion: {
+      camera: { ...shotCamera.to, driftX: 0, driftY: 0, depth: 0 },
+      transition: "dissolve",
+    },
+    accessibility: { label: intent },
+  };
+}
+
+export const prologueShots: readonly ShotDefinition[] = [
+  authoredShot(
+    "shot-opening-scale",
+    "opening-stillness",
+    "Establish quiet architectural scale before identity appears.",
+    0,
+    4_000,
+    [],
+    undefined,
+    "darkness",
+  ),
+  authoredShot(
+    "shot-gac-credit",
+    "gac-presenting-credit",
+    "Present Gent Ascend Collective with restrained authority.",
+    4_000,
+    14_000,
+    ["Gent Ascend Collective presents"],
+    "gac-logo",
+    "gold",
+  ),
+  authoredShot(
+    "shot-dedication",
+    "exclusive-dedication",
+    "Make the invitation feel private, specific, and consequential.",
+    14_000,
+    27_000,
+    [
+      "Created exclusively for",
+      "Blair Vidrine",
+      "Bailey Soileau",
+      "The Apothecary Shoppe",
+    ],
+    undefined,
+    "balanced",
+  ),
+  authoredShot(
+    "shot-tas-entry",
+    "tas-hq-reveal",
+    "Cross into the TAS HQ world and resolve the system emblem.",
+    27_000,
+    43_000,
+    ["TAS HQ", "An Executive Vision Experience"],
+    "tas-hq-logo",
+    "green",
+  ),
+  authoredShot(
+    "shot-standard-threshold",
+    "act-one-handoff",
+    "Hold the audience at the deliberate threshold of The Standard.",
+    43_000,
+    54_000,
+    ["Act I", "The Standard"],
+    "tas-hq-logo",
+    "balanced",
+  ),
+];
 
 export const prologueManifest: PresentationManifest = {
   metadata: {
@@ -195,6 +438,7 @@ export const prologueManifest: PresentationManifest = {
       ],
     },
   ],
+  shots: prologueShots,
 };
 
 function scene(

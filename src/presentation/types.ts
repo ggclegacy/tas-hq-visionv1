@@ -12,6 +12,88 @@ export interface PresentationMetadata {
 }
 
 export type QualityTier = "essential" | "enhanced" | "cinematic";
+export type ViewportClass = "mobile" | "tablet" | "desktop";
+export type ShotDepthPlane =
+  | "environment"
+  | "architecture"
+  | "atmosphere"
+  | "subject"
+  | "typography"
+  | "foreground";
+
+export interface ShotCameraState {
+  readonly focalSubject: string;
+  readonly focalX: number;
+  readonly focalY: number;
+  readonly scale: number;
+  readonly depth: number;
+  readonly driftX: number;
+  readonly driftY: number;
+  readonly lens?: "macro" | "intimate" | "normal" | "wide";
+}
+
+export interface ShotLayerDefinition {
+  readonly id: string;
+  readonly plane: ShotDepthPlane;
+  readonly kind:
+    "field" | "architecture" | "light" | "image" | "copy" | "occlusion";
+  readonly content?: readonly string[];
+  readonly assetId?: string;
+  readonly decorative: boolean;
+  readonly meaning?: string;
+  readonly depth: number;
+  readonly qualityTiers: readonly QualityTier[];
+  readonly fallback: "hide" | "field" | "copy";
+}
+
+export interface ShotViewportOverride {
+  readonly focalX?: number;
+  readonly focalY?: number;
+  readonly scale?: number;
+  readonly textAlign?: "start" | "center" | "end";
+  readonly textWidth?: number;
+  readonly motionIntensity?: number;
+  readonly safeInset?: number;
+}
+
+export interface ShotLightingState {
+  readonly key: "darkness" | "gold" | "green" | "balanced";
+  readonly intensity: number;
+  readonly warmth: number;
+  readonly atmosphere: number;
+}
+
+export interface ShotTransitionDefinition {
+  readonly kind:
+    "cut" | "dissolve" | "light-wipe" | "occlusion" | "precision-lock";
+  readonly durationMs: number;
+}
+
+export interface ShotDefinition extends TimeRange {
+  readonly id: string;
+  readonly parentSceneId: string;
+  readonly intent: string;
+  readonly camera: {
+    readonly from: ShotCameraState;
+    readonly to: ShotCameraState;
+  };
+  readonly layers: readonly ShotLayerDefinition[];
+  readonly lighting: {
+    readonly from: ShotLightingState;
+    readonly to: ShotLightingState;
+  };
+  readonly entranceEndMs: number;
+  readonly exitStartMs: number;
+  readonly transitionOut: ShotTransitionDefinition;
+  readonly viewports: Readonly<Record<ViewportClass, ShotViewportOverride>>;
+  readonly reducedMotion: {
+    readonly camera: ShotCameraState;
+    readonly transition: "cut" | "dissolve";
+  };
+  readonly accessibility: {
+    readonly label: string;
+  };
+}
 
 export interface ReducedMotionAlternative {
   readonly mode: "static" | "crossfade" | "instant";
@@ -151,6 +233,7 @@ export interface PresentationManifest {
   readonly narrationTracks: readonly NarrationTrack[];
   readonly captionTracks: readonly CaptionTrack[];
   readonly acts: readonly ActDefinition[];
+  readonly shots?: readonly ShotDefinition[];
 }
 
 export interface ValidationIssue {

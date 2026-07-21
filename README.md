@@ -1,6 +1,6 @@
 # TAS HQ Executive Vision Experience
 
-A directed executive cinematic experience. The production sequence now composes the 54-second Prologue, 60-second Act I, and 60-second Act II on one deterministic timeline.
+A directed executive cinematic experience. The default route combines a 54-second shot-driven Prologue and 82-second Act I on one deterministic timeline.
 
 ## Setup
 
@@ -21,10 +21,10 @@ npm run dev
 - `npm run format` / `npm run format:check` — write or verify deterministic formatting.
 - `npm run test` / `npm run test:watch` — run the Vitest suite once or in watch mode.
 
-See [CONTRIBUTING.md](CONTRIBUTING.md), [runtime architecture](docs/ARCHITECTURE.md), and [current build status](BUILD_STATUS.md) before extending the project.
+See [CONTRIBUTING.md](CONTRIBUTING.md), [runtime architecture](docs/ARCHITECTURE.md), and [current build status](docs/BUILD_STATUS.md) before extending the project.
 
-The default route opens the executive Prologue launch. Append `?debug` during local development to expose quality-tier and seek controls. Debug controls are never shown by default.
+The default route opens the executive Prologue launch. Append `?debug` during local development to expose the shot inspector, deterministic seek, viewport simulation, quality tiers, reduced motion, and chapter skip. Debug controls are never shown by default.
 
 ## Phase boundary
 
-Act II ends at an intentional `Act III` / `The Future Standard` hold. Act III and later acts, final Onyx narration and ambience, 3D environments, the closing sequence, and exploration mode are not implemented. Pending audio paths are metadata hooks and are not loaded.
+Act I ends on an intentional `Act II` / `The Challenge` hold. Act II and later acts, final Onyx narration and ambience, product demonstrations, the closing sequence, and exploration mode are not part of the runtime. Pending audio paths are metadata hooks and are not loaded.
