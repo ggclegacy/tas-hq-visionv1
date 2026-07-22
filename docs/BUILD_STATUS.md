@@ -180,6 +180,21 @@ Phase status: **Phase 3 Act II implemented; Neil's subjective visual inspection 
 
 Pass status: **Complete; Neil's subjective visual inspection pending.**
 
+## Phase 1 — Cinematic Reconstruction Pass
+
+1. **Audit and baseline — Complete (2026-07-22):** mapped the 40s opening, five shots/four prior text-dominant moments, copy, captions, logo paths, Director/stage/resolver/media/viewport/tier systems, and downstream boundary in `OPENING_CINEMATIC_RECONSTRUCTION.md`. Baseline types/lint, 58 tests, and build pass; global format check is blocked only by an unrelated untracked Phase 4 document, preserved untouched. Next: treatment.
+2. **Treatment, copy, and shot plan — Complete:** definitive five-shot/40s journey and Apothecary-specific draft narration/captions authored; three major title moments; dedication preserved; Act I handoff remains 40s. Final voice/ambience pending. Next: luxury foundation.
+3. **Luxury foundation — Complete:** existing named obsidian, graphite, dark-glass, green, champagne/machined-gold, bronze-shadow, and ivory tokens retained; opening uses dimensional highlight/shadow instead of muddy large gold type; complete phrases resolve in 700ms. Contrast/reduced motion preserved. Next: environment.
+4. **Living environment — Complete:** persistent architecture, depth planes, bounded atmosphere/light/reflection, parallax, foreground occlusion, and canonical-time evolution remain active from frame one. Tier caps and reduced motion preserve hierarchy; no WebGL dependency added. Next: choreography.
+5. **Camera, lighting, transitions — Complete:** every adjacency retains validated architecture/emblem/occlusion carriers and 900ms overlap; camera, light, material, and foreground movement derive from resolved time; no fade-only or component-clock path added. Next: logos.
+6. **Logo artifacts — Complete:** shared artifact system now composes larger centered GAC and commanding TAS HQ variants with axial response, breathing-scale movement, rim/specular light, halo, shadow, parallax, foreground interaction, preload, and premium reduced/tier fallbacks. Source PNGs remain untouched. Next: Prologue.
+7. **Threshold and Prologue — Complete:** Begin autoplay/audio unlock preserved; five-shot 40s manifest remains canonical; generic narration replaced by exact Apothecary-specific caption metadata; title-card duplication reduced; legacy timing not duplicated. Next: Act I handoff.
+8. **Act I opening handoff — Complete:** TAS HQ emblem recedes into the existing Act I architecture; first Act I shot now honors Blair and Bailey through one strong thesis while the rest of Act I remains untouched and contiguous. No later content or UI added. Next: responsive/performance.
+9. **Responsive, accessibility, performance — Complete:** mobile hero emblems use intentional upper-field framing and protected lower copy; tablet/desktop/executive-display rules are authored; semantic text/logos, captions, focus, silent/fullscreen/interruption/seek/replay, tiers, and reduced motion remain covered. Browser/FPS automation unavailable; automated/static/build evidence used. Next: audit.
+10. **Final audit and handoff — Complete:** one opening renderer/timeline remains; 40s Prologue and downstream boundary validated; no flat-green card path, repeated bottom-left stack, competing clock, later-act implementation, asset mutation, dependency, commit, push, or deploy introduced. Typecheck, lint, 58/58 tests, production build, scoped formatting, dependency audit (zero vulnerabilities), secret scan, deterministic-timing scan, and diff hygiene pass. Source/public logo pairs remain byte-identical. Unrelated untracked user documents were preserved. Neil's subjective inspection, measured browser FPS, and final audio remain pending.
+
+Reconstruction status: **Complete; Neil's subjective visual inspection pending.**
+
 ## Project identity
 
 - Product: TAS HQ Executive Vision Experience

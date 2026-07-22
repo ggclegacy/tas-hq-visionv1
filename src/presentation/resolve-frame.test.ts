@@ -84,14 +84,18 @@ describe("unified Prologue frame resolution", () => {
         ?.overlap?.nextShotId,
     ).toBe("shot-dedication");
   });
-  it("keeps retimed captions inside the Prologue", () => {
+  it("keeps reconstructed captions aligned through the handoff", () => {
     expect(
       resolvePresentationFrame(prologueManifest, snapshot(4_000), options)
         .caption?.id,
-    ).toBe("caption-systems");
+    ).toBe("caption-people-carry-it");
     expect(
       resolvePresentationFrame(prologueManifest, snapshot(32_000), options)
-        .caption,
-    ).toBeNull();
+        .caption?.id,
+    ).toBe("caption-tas");
+    expect(
+      resolvePresentationFrame(prologueManifest, snapshot(39_000), options)
+        .caption?.id,
+    ).toBe("caption-standard");
   });
 });

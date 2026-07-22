@@ -40,8 +40,7 @@ const specs = [
     [
       "Act I",
       "The Standard",
-      "Some organizations are built.",
-      "Others are carried.",
+      "What Blair and Bailey built lives in the people who carry it.",
     ],
     "Recognition",
     "gold",

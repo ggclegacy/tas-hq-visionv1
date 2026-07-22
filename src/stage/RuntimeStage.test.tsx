@@ -143,7 +143,9 @@ describe("Prologue and Act I stage integration", () => {
       target: { value: "6000" },
     });
     expect(
-      screen.getByText("Every organization is built on more than systems."),
+      screen.getByText(
+        "What Blair and Bailey built lives in the people who carry it.",
+      ),
     ).toBeInTheDocument();
     expect(screen.getByLabelText(/audio unavailable/i)).toHaveTextContent(
       "Silent mode",

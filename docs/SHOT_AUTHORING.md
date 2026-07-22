@@ -42,3 +42,7 @@ Never overwrite, trace, crop destructively, distort, or recolor the approved log
 Later acts reuse these contracts by adding validated scenes and shots to the manifest. They must not bypass the Presentation Director, introduce component clocks, or couple playback to exploration navigation.
 
 Debug access is `?debug`. The shot inspector is a development aid only and must remain absent from the default route.
+
+## Opening reconstruction grammar
+
+The opening uses five authored shots and only three major title moments: GAC, the exclusive dedication, and the combined TAS HQ / Act I handoff. Complete phrases become legible within 850 ms, logo marks are treated as cinematic subjects rather than interface ornaments, and every cut carries forward a motivated light, atmosphere, or architectural edge. Do not reintroduce a chain of centered title cards or a visual reset at the Act I boundary.
