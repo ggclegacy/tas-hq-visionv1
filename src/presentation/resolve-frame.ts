@@ -35,6 +35,11 @@ export interface ResolvedShotFrame {
     readonly progress: number;
   };
   readonly viewport: ViewportClass;
+  readonly overlap: {
+    readonly nextShotId: string;
+    readonly progress: number;
+    readonly carrier: ShotDefinition["continuityCarrier"];
+  } | null;
 }
 
 export interface ResolvedTransition {
@@ -155,6 +160,18 @@ function resolveShot(
     transitionDuration === 0
       ? 0
       : clamp((timeMs - definition.exitStartMs) / transitionDuration, 0, 1);
+  const shotIndex =
+    manifest.shots?.findIndex((shot) => shot.id === definition.id) ?? -1;
+  const nextShot = shotIndex >= 0 ? manifest.shots?.[shotIndex + 1] : undefined;
+  const overlapDuration = definition.overlapMs ?? 0;
+  const overlapProgress =
+    overlapDuration > 0
+      ? clamp(
+          (timeMs - (definition.endMs - overlapDuration)) / overlapDuration,
+          0,
+          1,
+        )
+      : 0;
   return {
     shot: definition,
     localTimeMs,
@@ -176,6 +193,14 @@ function resolveShot(
       progress: transitionProgress,
     },
     viewport,
+    overlap:
+      nextShot && overlapProgress > 0
+        ? {
+            nextShotId: nextShot.id,
+            progress: overlapProgress,
+            carrier: definition.continuityCarrier,
+          }
+        : null,
   };
 }
 

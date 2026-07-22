@@ -84,23 +84,23 @@ describe("Prologue and Act I stage integration", () => {
     expect(
       screen.getByText("Gent Ascend Collective presents"),
     ).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "15000" } });
+    fireEvent.change(seek, { target: { value: "12000" } });
     expect(screen.getByText("Blair Vidrine")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "30000" } });
+    fireEvent.change(seek, { target: { value: "22000" } });
     expect(
       screen.getByText("An Executive Vision Experience"),
     ).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "54000" } });
+    fireEvent.change(seek, { target: { value: "42000" } });
     expect(screen.getByText("The Standard")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "75000" } });
+    fireEvent.change(seek, { target: { value: "57000" } });
     expect(screen.getByText("Knowledge")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "95000" } });
+    fireEvent.change(seek, { target: { value: "73000" } });
     expect(screen.getByText("People")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "150000" } });
+    fireEvent.change(seek, { target: { value: "110000" } });
     expect(screen.getByText("Knowledge")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "185000" } });
+    fireEvent.change(seek, { target: { value: "140000" } });
     expect(screen.getByText("Communication")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "226000" } });
+    fireEvent.change(seek, { target: { value: "170000" } });
     expect(screen.getByText("The Vision")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Replay Experience" }),

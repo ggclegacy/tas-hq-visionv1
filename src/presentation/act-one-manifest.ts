@@ -246,7 +246,8 @@ export const actOneShots: readonly ShotDefinition[] = specs.map(
         transition: "dissolve",
       },
       accessibility: { label: `${intent}: ${content.join(" ")}` },
-      continuityCarrier: index % 3 === 0 ? "architecture" : index % 3 === 1 ? "light" : "camera",
+      continuityCarrier:
+        index % 3 === 0 ? "architecture" : index % 3 === 1 ? "light" : "camera",
       overlapMs: 800,
       fullLegibilityMs: startMs + 700,
       emblem: "none",

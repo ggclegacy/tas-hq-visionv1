@@ -2,6 +2,8 @@
 
 Status: definitive production contract. `SECOND_ACT_TREATMENT.md` is superseded for production.
 
+Timing note: approved meaning remains definitive; production timestamps are superseded by the 68-second Act II map in `PHASES_1_TO_3_UNIFIED_CINEMATIC_TREATMENT.md`.
+
 Act II lasts 90 seconds (`02:16–03:46`). Every observation is a universal conceptual organizational dynamic, not company data or an evidence claim. The Act I world remains intact while paths, depth, reflections, and occlusion multiply. All elements are original CSS metaphors with no external asset requirement.
 
 | Time        | Shot                       | Purpose and approved copy                                                                    | Composition                                                      |

@@ -164,6 +164,22 @@ Phase status: **Phase 2 Act I implemented; Neil's subjective visual inspection p
 
 Phase status: **Phase 3 Act II implemented; Neil's subjective visual inspection pending**
 
+## Cinematic Unification and Elevation Pass — Phases 1–3
+
+1. **Audit — Complete (2026-07-21):** verified the 226s baseline, 60 passing tests, bundle, logos, timing/coupling problems, and safe 170s migration in `CINEMATIC_UNIFICATION_AUDIT.md`. Next: unified treatment.
+2. **Unified treatment — Complete:** created the definitive 40s/62s/68s timing map, continuity language, accessibility/tier behavior, and Scene 1 rubric. Next: shared systems.
+3. **Shared systems — Complete:** added semantic champagne/machined-gold, graphite/glass tokens; validated overlap/carrier/reveal/emblem metadata; pure overlap resolution; preload hints; fast phrase reveal; deterministic emblem/parallax treatment; debug overlap readout. WebGL rejected as unnecessary. Next: Scene 1.
+4. **Scene 1 benchmark — Complete:** GAC identifies quickly in a 7s shot with immediate architecture/light activity, larger artifact scale, axial response, rim/specular light, sub-900ms copy legibility, overlap carrier, portrait composition, tiers, and reduced motion. Next: Prologue.
+5. **Unified Prologue — Complete:** retimed to 40s (`0/3/10/19/31/40`), retimed captions/audio hooks, preserved copy/logos, and removed long empty arrival/hold behavior. Next: Act I.
+6. **Unified Act I — Complete:** retimed to 62s (`40–102s`) with varied 6–9s shots, rapid complete-thought reveals, active restrained environment, and continuous Challenge handoff. Next: Act II.
+7. **Unified Act II — Complete:** retimed to 68s (`102–170s`) with varied 6–7s shots, compounded controlled complexity, and unchanged inert Vision threshold. Next: editorial tightening.
+8. **Timeline tightening — Complete:** canonical total is 170s with no holes/overlaps in structural ranges, no equal-duration Act II template, validated 500–900ms continuity overlaps, and reveal-budget enforcement. Next: responsive/accessibility hardening.
+9. **Responsive/accessibility hardening — Complete:** mobile/tablet/desktop authored profiles, semantic copy/logos, safe captions/controls, keyboard focus, silent/fullscreen/interruption/replay behavior, tiers, and premium reduced motion preserved. Debug remains opt-in. Next: performance.
+10. **Performance hardening — Complete:** logo preload added; only active shot layers render; one animation-frame loop exists only while playing; expensive foreground/atmosphere layers are tier-capped; no WebGL/random/timer system added. Final bundle is JS 230.01 kB / 71.70 kB gzip and CSS 13.82 kB / 4.24 kB gzip, increases of 1.25/0.43 kB JS and 0.60/0.17 kB CSS from baseline. Browser FPS tooling unavailable; bundle/static evidence recorded. Next: final audit.
+11. **Final audit — Complete:** one 170s canonical timeline, Director authority, protected assets, deterministic transport, continuity carriers, Scene 1 reuse, luxury tokens, authored viewports, and development-only diagnostics verified. Final checks pass: format, strict types, zero-warning lint, 58 tests, production build, timing budgets, dependency audit (0 vulnerabilities), secret/timer/randomness scans, logo integrity, and diff hygiene. Vite starts successfully, but the separate HTTP probe could not connect across the execution boundary; browser automation is unavailable. No Act III content, commit, push, deploy, or unlicensed asset added. Neil's subjective inspection is pending.
+
+Pass status: **Complete; Neil's subjective visual inspection pending.**
+
 ## Project identity
 
 - Product: TAS HQ Executive Vision Experience

@@ -2,6 +2,8 @@
 
 Status: approved copy and timing; original centered visual direction superseded on 2026-07-21 by the shot-driven treatment below.
 
+Timing note: the 54-second ranges below are historical. Production timing is now the 40-second map in `PHASES_1_TO_3_UNIFIED_CINEMATIC_TREATMENT.md`.
+
 ## Shot-driven production treatment
 
 The five shots occupy one continuous architectural world. Environment, structure, light, and foreground framing persist as a shared visual grammar while the focal subject and typography plane change. Exact state is reconstructed from canonical time.

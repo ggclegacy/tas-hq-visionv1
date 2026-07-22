@@ -119,13 +119,17 @@ const specs = [
     1,
   ],
 ] as const;
-const durations = [6_000, 7_000, 6_000, 7_000, 7_000, 7_000, 7_000, 7_000, 7_000, 7_000] as const;
-const startAt = (index: number) => ACT_TWO_START_MS + durations.slice(0, index).reduce((sum, value) => sum + value, 0);
+const durations = [
+  6_000, 7_000, 6_000, 7_000, 7_000, 7_000, 7_000, 7_000, 7_000, 7_000,
+] as const;
+const startAt = (index: number) =>
+  ACT_TWO_START_MS +
+  durations.slice(0, index).reduce((sum, value) => sum + value, 0);
 
 export const actTwoScenes: readonly SceneDefinition[] = specs.map(
   ([id, content], index) => {
-  const startMs = startAt(index),
-    endMs = startMs + durations[index]!;
+    const startMs = startAt(index),
+      endMs = startMs + durations[index]!;
     return {
       id: `${id}-scene`,
       title: content[0],
@@ -164,8 +168,8 @@ export const actTwoScenes: readonly SceneDefinition[] = specs.map(
 
 export const actTwoShots: readonly ShotDefinition[] = specs.map(
   ([id, content, intent, light, density], index) => {
-  const startMs = startAt(index),
-    endMs = startMs + durations[index]!;
+    const startMs = startAt(index),
+      endMs = startMs + durations[index]!;
     const from = {
       focalSubject: id,
       focalX: 47,
@@ -273,7 +277,12 @@ export const actTwoShots: readonly ShotDefinition[] = specs.map(
       accessibility: {
         label: `Universal organizational dynamic, not a company claim. ${content.join(" ")}`,
       },
-      continuityCarrier: index % 3 === 0 ? "architecture" : index % 3 === 1 ? "light" : "occlusion",
+      continuityCarrier:
+        index % 3 === 0
+          ? "architecture"
+          : index % 3 === 1
+            ? "light"
+            : "occlusion",
       overlapMs: 750,
       fullLegibilityMs: startMs + 650,
       emblem: "none",

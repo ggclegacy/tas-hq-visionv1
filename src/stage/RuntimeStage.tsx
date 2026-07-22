@@ -138,7 +138,7 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
             Begin the Presentation
           </button>
           <p className="cinema-launch__note">
-            3 minutes 46 seconds · Sound optional
+            2 minutes 50 seconds · Sound optional
           </p>
           {fullscreenMessage && <p role="status">{fullscreenMessage}</p>}
         </section>
@@ -164,6 +164,12 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
   const shot = frame.shot;
   const camera = shot?.camera;
   const profile = shot?.shot.viewports[viewport];
+  const entranceDuration = shot
+    ? shot.shot.entranceEndMs - shot.shot.startMs
+    : 1;
+  const entranceProgress = shot
+    ? Math.min(1, shot.localTimeMs / Math.max(1, entranceDuration))
+    : 1;
   const style = {
     "--camera-x": `${camera?.driftX ?? 0}vw`,
     "--camera-y": `${camera?.driftY ?? 0}vh`,
@@ -174,7 +180,9 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
     "--light-warmth": shot?.lighting.warmth ?? 0,
     "--atmosphere": shot?.lighting.atmosphere ?? 0,
     "--shot-progress": shot?.progress ?? 0,
+    "--entrance-progress": entranceProgress,
     "--transition-progress": shot?.transition.progress ?? 0,
+    "--overlap-progress": shot?.overlap?.progress ?? 0,
     "--text-width": `${profile?.textWidth ?? 48}%`,
     "--safe-inset": `${profile?.safeInset ?? 4}vw`,
   } as CSSProperties;
@@ -488,6 +496,11 @@ function ShotHarness({
           : "—"}
         <br />
         layers {frame.shot?.layers.map((layer) => layer.id).join(", ") ?? "—"}
+        <br />
+        overlap{" "}
+        {frame.shot?.overlap
+          ? `${frame.shot.overlap.nextShotId} / ${frame.shot.overlap.carrier}`
+          : "—"}
       </output>
     </fieldset>
   );

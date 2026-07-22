@@ -261,7 +261,8 @@ button:disabled {
   top: 50%;
   left: clamp(7vw, 13vw, 14rem);
   width: clamp(9rem, 24vw, 22rem);
-  transform: translateY(-50%);
+  transform: translateY(-50%) perspective(900px)
+    rotateY(calc((0.5 - var(--shot-progress)) * 3deg));
 }
 .cinema-subject::before {
   position: absolute;
@@ -291,7 +292,8 @@ button:disabled {
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 2.5rem 3.5rem #000c);
+  filter: drop-shadow(0 2.5rem 3.5rem #000c)
+    drop-shadow(0 0 1.2rem rgb(232 213 165 / 15%));
 }
 
 .cinema-copy {
@@ -332,7 +334,24 @@ button:disabled {
   letter-spacing: -0.035em;
 }
 .phase--entrance .cinema-copy {
-  clip-path: inset(0 calc((1 - var(--shot-progress)) * 65%) 0 0);
+  clip-path: inset(0 calc((1 - var(--entrance-progress)) * 100%) 0 0);
+  opacity: calc(0.25 + var(--entrance-progress) * 0.75);
+}
+
+.cinema-stage::after {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  opacity: calc(var(--overlap-progress) * 0.22);
+  background: linear-gradient(
+    112deg,
+    transparent 20%,
+    rgb(232 213 165 / 12%) 48%,
+    transparent 72%
+  );
+  transform: translateX(calc((var(--overlap-progress) - 0.5) * 18vw));
 }
 .phase--exit.transition--occlusion .cinema-copy {
   opacity: calc(1 - var(--transition-progress));

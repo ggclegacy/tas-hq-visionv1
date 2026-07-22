@@ -2,6 +2,8 @@
 
 Status: definitive production treatment. Earlier Act I visual direction is superseded; its approved conceptual meaning remains source material.
 
+Timing note: approved meaning remains definitive; production timestamps are superseded by the 62-second Act I map in `PHASES_1_TO_3_UNIFIED_CINEMATIC_TREATMENT.md`.
+
 Act I lasts 82 seconds, from `00:54` through `02:16`, in the same architectural world as the Prologue. Abstract human-scale apertures, restrained shadows, and transmitted light imply people and practice without depicting real facilities or employees. All shots use semantic copy, the existing three viewport profiles, essential/enhanced/cinematic tiers, and a static reduced-motion camera. No external asset is required; environment primitives are original CSS composition.
 
 | Time        | Shot                         | Purpose and exact copy                                                                                                           | Composition, light, transition                                                                                       |

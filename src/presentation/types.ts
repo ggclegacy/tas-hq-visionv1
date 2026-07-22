@@ -93,7 +93,14 @@ export interface ShotDefinition extends TimeRange {
   readonly accessibility: {
     readonly label: string;
   };
-  readonly continuityCarrier?: "camera" | "architecture" | "light" | "reflection" | "atmosphere" | "occlusion" | "emblem";
+  readonly continuityCarrier?:
+    | "camera"
+    | "architecture"
+    | "light"
+    | "reflection"
+    | "atmosphere"
+    | "occlusion"
+    | "emblem";
   readonly overlapMs?: number;
   readonly fullLegibilityMs?: number;
   readonly emblem?: "gac" | "tas-hq" | "none";

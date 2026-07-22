@@ -15,7 +15,7 @@ export const productionManifest: PresentationManifest = {
     ...prologueManifest.metadata,
     id: "tas-hq-executive-vision",
     title: "TAS HQ Executive Vision Experience",
-    version: "6.0.0",
+    version: "7.0.0",
     durationMs: PRODUCTION_DURATION_MS,
   },
   acts: [prologueManifest.acts[0]!, actOneDefinition, actTwoDefinition],

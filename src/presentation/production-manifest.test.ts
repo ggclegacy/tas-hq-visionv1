@@ -34,18 +34,18 @@ const options = {
 };
 
 describe("production manifest through Act II", () => {
-  it("validates unchanged Prologue/Act I plus 90-second Act II", () => {
+  it("validates the unified 170-second timeline", () => {
     expect(validateManifest(productionManifest).ok).toBe(true);
-    expect(productionManifest.metadata.durationMs).toBe(226_000);
+    expect(productionManifest.metadata.durationMs).toBe(170_000);
     expect(
       productionManifest.acts.map(({ startMs, endMs }) => [startMs, endMs]),
     ).toEqual([
-      [0, 54_000],
-      [54_000, 136_000],
-      [136_000, 226_000],
+      [0, 40_000],
+      [40_000, 102_000],
+      [102_000, 170_000],
     ]);
-    expect(ACT_ONE_END_MS - ACT_ONE_START_MS).toBe(82_000);
-    expect(ACT_TWO_END_MS - ACT_TWO_START_MS).toBe(90_000);
+    expect(ACT_ONE_END_MS - ACT_ONE_START_MS).toBe(62_000);
+    expect(ACT_TWO_END_MS - ACT_TWO_START_MS).toBe(68_000);
   });
 
   it.each(actOneShots.map((shot) => [shot.startMs, shot.id] as const))(
@@ -68,10 +68,23 @@ describe("production manifest through Act II", () => {
     },
   );
 
+  it("enforces unified reveal and continuity budgets", () => {
+    for (const shot of productionManifest.shots ?? []) {
+      expect(shot.fullLegibilityMs, shot.id).toBeDefined();
+      expect(
+        shot.fullLegibilityMs! - shot.startMs,
+        shot.id,
+      ).toBeLessThanOrEqual(900);
+      expect(shot.overlapMs, shot.id).toBeGreaterThanOrEqual(500);
+      expect(shot.overlapMs, shot.id).toBeLessThanOrEqual(1_600);
+      expect(shot.continuityCarrier, shot.id).toBeTruthy();
+    }
+  });
+
   it("holds the inert Act III threshold at completion", () => {
     const frame = resolvePresentationFrame(
       productionManifest,
-      snapshot(226_000),
+      snapshot(170_000),
       options,
     );
     expect(frame.shot?.shot.id).toBe("act2-vision-threshold");
