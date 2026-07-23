@@ -52,7 +52,7 @@ button:disabled {
   min-height: 100dvh;
   overflow: hidden;
   isolation: isolate;
-  background: #050706;
+  background: var(--color-obsidian-950);
 }
 
 .cinema-launch {
@@ -143,6 +143,26 @@ button:disabled {
     scale(var(--camera-scale));
   will-change: transform;
 }
+.cinema-stage__aperture {
+  position: absolute;
+  z-index: 0;
+  inset: 7% 5%;
+  border: 1px solid rgb(215 193 138 / 8%);
+  clip-path: polygon(
+    8% 0,
+    92% 0,
+    100% 18%,
+    100% 82%,
+    92% 100%,
+    8% 100%,
+    0 82%,
+    0 18%
+  );
+  box-shadow:
+    inset 0 0 8rem rgb(3 7 6 / 82%),
+    0 0 5rem rgb(27 138 93 / 5%);
+  opacity: calc(0.35 + var(--light-intensity) * 0.35);
+}
 .cinema-plane {
   position: absolute;
   inset: 0;
@@ -197,7 +217,32 @@ button:disabled {
       rgb(185 154 85 / calc(var(--light-warmth) * 0.08)),
       transparent 34%
     ),
-    linear-gradient(122deg, #030504 8%, #0b100d 52%, #050706 84%);
+    linear-gradient(
+      122deg,
+      var(--color-obsidian-950) 8%,
+      var(--color-graphite-cool) 52%,
+      var(--color-obsidian-900) 84%
+    );
+}
+.cinema-field::before {
+  position: absolute;
+  inset: 12% -8%;
+  content: "";
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 20%,
+      rgb(27 138 93 / 8%) 20.2% 20.35%,
+      transparent 20.5% 100%
+    ),
+    linear-gradient(
+      108deg,
+      transparent 0 53%,
+      rgb(215 193 138 / 5%) 53.2% 53.35%,
+      transparent 53.5% 100%
+    );
+  opacity: calc(0.28 + var(--light-intensity) * 0.25);
+  transform: translate3d(calc((var(--shot-progress) - 0.5) * -4vw), 0, 0);
 }
 .cinema-field::after {
   position: absolute;
@@ -225,7 +270,8 @@ button:disabled {
   inset: 6% 12%;
   border: 1px solid rgb(193 181 147 / 10%);
   clip-path: polygon(0 18%, 76% 0, 100% 72%, 21% 100%);
-  transform: rotateX(62deg) rotateZ(-7deg);
+  transform: rotateX(62deg) rotateZ(-7deg)
+    translate3d(calc((var(--shot-progress) - 0.5) * 1.8vw), 0, 0);
   box-shadow: inset 0 0 4rem #000;
 }
 .cinema-architecture i:nth-child(2) {
@@ -264,6 +310,24 @@ button:disabled {
   transform: translateY(-50%) perspective(900px)
     rotateY(calc((0.5 - var(--shot-progress)) * 3deg));
 }
+.cinema-subject b {
+  position: absolute;
+  inset: -22%;
+  border: 1px solid rgb(215 193 138 / 13%);
+  border-radius: 50%;
+  box-shadow:
+    inset 0 0 3rem rgb(3 7 6 / 72%),
+    0 0 4rem rgb(27 138 93 / 7%);
+  opacity: calc(0.2 + var(--light-intensity) * 0.38);
+  transform: rotate(calc((var(--shot-progress) - 0.5) * 7deg));
+}
+.cinema-subject b::after {
+  position: absolute;
+  inset: 8%;
+  content: "";
+  border: 1px solid rgb(27 138 93 / 12%);
+  border-radius: inherit;
+}
 .cinema-subject::before {
   position: absolute;
   inset: -30%;
@@ -295,6 +359,26 @@ button:disabled {
   filter: drop-shadow(0 2.5rem 3.5rem #000c)
     drop-shadow(0 0 1.2rem rgb(232 213 165 / 15%));
 }
+.cinema-subject--fallback img {
+  opacity: 0;
+}
+.cinema-subject--fallback::after {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--color-ivory-100);
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 4vw, 3.5rem);
+  letter-spacing: 0.08em;
+  content: "Brand mark";
+}
+.cinema-subject--fallback[data-asset-id="gac-logo"]::after {
+  content: "Gent Ascend Collective";
+}
+.cinema-subject--fallback[data-asset-id="tas-hq-logo"]::after {
+  content: "TAS HQ";
+}
 
 .cinema-copy {
   position: absolute;
@@ -304,6 +388,15 @@ button:disabled {
   max-width: 42rem;
   transform: translateY(-50%);
   text-align: left;
+}
+.cinema-copy::before {
+  display: block;
+  width: clamp(2.5rem, 6vw, 6rem);
+  height: 1px;
+  margin-bottom: 1.2rem;
+  content: "";
+  background: linear-gradient(90deg, var(--color-gold-300), transparent);
+  opacity: calc(0.25 + var(--entrance-progress) * 0.55);
 }
 .cinema-copy p,
 .cinema-copy h1 {
@@ -401,6 +494,18 @@ button:disabled {
   color: var(--color-gold-300);
   font-size: clamp(2rem, 5vw, 5.2rem);
 }
+.shot--shot-standard-carried .cinema-copy {
+  right: auto;
+  left: 14vw;
+  width: min(48%, 42rem);
+}
+.shot--shot-standard-carried .cinema-copy h1 {
+  font-size: clamp(2.4rem, 5.2vw, 5.8rem);
+  line-height: 1.02;
+}
+.shot--shot-standard-carried .cinema-architecture {
+  clip-path: polygon(0 0, 78% 0, 62% 100%, 0 100%);
+}
 .shot--shot-tas-entry .cinema-subject {
   left: 48%;
   width: clamp(15rem, 34vw, 31rem);
@@ -416,10 +521,31 @@ button:disabled {
   top: 28%;
   width: clamp(5rem, 10vw, 8rem);
   opacity: 0.72;
+  transform: translateY(-50%) scale(calc(1 - var(--shot-progress) * 0.08));
 }
 .shot--shot-standard-threshold .cinema-copy {
   top: 58%;
   right: 10vw;
+}
+.shot--shot-standard-threshold .cinema-architecture,
+.shot--act1-threshold-recognition .cinema-architecture {
+  clip-path: polygon(
+    8% 0,
+    92% 0,
+    100% 22%,
+    100% 78%,
+    92% 100%,
+    8% 100%,
+    0 78%,
+    0 22%
+  );
+}
+.shot--shot-tas-entry .cinema-subject b,
+.shot--shot-standard-threshold .cinema-subject b {
+  border-color: rgb(27 138 93 / 22%);
+  box-shadow:
+    inset 0 0 3rem rgb(3 7 6 / 76%),
+    0 0 5rem rgb(27 138 93 / 12%);
 }
 
 .shot--act1-threshold-recognition .cinema-copy,
@@ -668,6 +794,15 @@ button:disabled {
   .shot--shot-dedication .cinema-copy h1 {
     font-size: clamp(1.8rem, 8vw, 2.8rem);
   }
+  .shot--shot-standard-carried .cinema-copy {
+    right: 7vw;
+    bottom: 20vh;
+    left: 7vw;
+    width: 86%;
+  }
+  .shot--shot-standard-carried .cinema-copy h1 {
+    font-size: clamp(2.2rem, 11vw, 3.7rem);
+  }
   .shot--shot-standard-threshold .cinema-subject {
     top: 20%;
   }
@@ -708,6 +843,9 @@ button:disabled {
   }
   .cinema-subject span {
     display: none;
+  }
+  .cinema-subject b {
+    transform: none !important;
   }
   .phase--entrance .cinema-copy {
     clip-path: none;

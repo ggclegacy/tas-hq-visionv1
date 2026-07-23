@@ -34,15 +34,15 @@ const options = {
 };
 
 describe("production manifest through Act II", () => {
-  it("validates the unified 170-second timeline", () => {
+  it("validates the unified 180-second timeline", () => {
     expect(validateManifest(productionManifest).ok).toBe(true);
-    expect(productionManifest.metadata.durationMs).toBe(170_000);
+    expect(productionManifest.metadata.durationMs).toBe(180_000);
     expect(
       productionManifest.acts.map(({ startMs, endMs }) => [startMs, endMs]),
     ).toEqual([
-      [0, 40_000],
-      [40_000, 102_000],
-      [102_000, 170_000],
+      [0, 50_000],
+      [50_000, 112_000],
+      [112_000, 180_000],
     ]);
     expect(ACT_ONE_END_MS - ACT_ONE_START_MS).toBe(62_000);
     expect(ACT_TWO_END_MS - ACT_TWO_START_MS).toBe(68_000);
@@ -84,7 +84,7 @@ describe("production manifest through Act II", () => {
   it("holds the inert Act III threshold at completion", () => {
     const frame = resolvePresentationFrame(
       productionManifest,
-      snapshot(170_000),
+      snapshot(180_000),
       options,
     );
     expect(frame.shot?.shot.id).toBe("act2-vision-threshold");
@@ -97,7 +97,7 @@ describe("production manifest through Act II", () => {
     "reconstructs Act I for %s",
     (viewport) => {
       expect(
-        resolvePresentationFrame(productionManifest, snapshot(97_000), {
+        resolvePresentationFrame(productionManifest, snapshot(107_000), {
           ...options,
           viewport,
         }).shot?.viewport,

@@ -84,23 +84,23 @@ describe("Prologue and Act I stage integration", () => {
     expect(
       screen.getByText("Gent Ascend Collective presents"),
     ).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "12000" } });
+    fireEvent.change(seek, { target: { value: "16000" } });
     expect(screen.getByText("Blair Vidrine")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "22000" } });
+    fireEvent.change(seek, { target: { value: "36000" } });
     expect(
       screen.getByText("An Executive Vision Experience"),
     ).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "42000" } });
+    fireEvent.change(seek, { target: { value: "52000" } });
     expect(screen.getByText("The Standard")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "57000" } });
+    fireEvent.change(seek, { target: { value: "67000" } });
     expect(screen.getByText("Knowledge")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "73000" } });
+    fireEvent.change(seek, { target: { value: "83000" } });
     expect(screen.getByText("People")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "110000" } });
+    fireEvent.change(seek, { target: { value: "120000" } });
     expect(screen.getByText("Knowledge")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "140000" } });
+    fireEvent.change(seek, { target: { value: "150000" } });
     expect(screen.getByText("Communication")).toBeInTheDocument();
-    fireEvent.change(seek, { target: { value: "170000" } });
+    fireEvent.change(seek, { target: { value: "180000" } });
     expect(screen.getByText("The Vision")).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: "Replay Experience" }),
@@ -172,5 +172,20 @@ describe("Prologue and Act I stage integration", () => {
       configurable: true,
       value: undefined,
     });
+  });
+
+  it("retains a truthful text fallback when a protected image fails", async () => {
+    const user = userEvent.setup();
+    const { director } = createDirector();
+    render(<RuntimeStage director={director} debug />);
+    await user.click(
+      screen.getByRole("button", { name: "Begin the Presentation" }),
+    );
+    fireEvent.change(screen.getByRole("slider", { name: "Seek" }), {
+      target: { value: "6000" },
+    });
+    const image = screen.getByRole("img", { name: "Gent Ascend Collective" });
+    fireEvent.error(image);
+    expect(image.parentElement).toHaveClass("cinema-subject--fallback");
   });
 });

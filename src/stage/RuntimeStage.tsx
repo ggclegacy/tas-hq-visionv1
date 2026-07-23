@@ -50,7 +50,7 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
   const systemReducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const detectedViewport = useViewportClass();
   const [captionsEnabled, setCaptionsEnabled] = useState(false);
-  const [quality, setQuality] = useState<QualityTier>("cinematic");
+  const [quality, setQuality] = useState<QualityTier>("enhanced");
   const [debugViewport, setDebugViewport] = useState<ViewportClass | null>(
     null,
   );
@@ -97,6 +97,15 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, [director]);
 
+  useEffect(() => {
+    for (const asset of [imageAssets.gacLogo, imageAssets.tasHqLogo]) {
+      const image = new Image(asset.width, asset.height);
+      image.decoding = "async";
+      image.src = asset.src;
+      void image.decode?.().catch(() => undefined);
+    }
+  }, []);
+
   async function begin() {
     setFullscreenMessage("");
     try {
@@ -137,9 +146,7 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
           >
             Begin the Presentation
           </button>
-          <p className="cinema-launch__note">
-            2 minutes 50 seconds · Sound optional
-          </p>
+          <p className="cinema-launch__note">3 minutes · Sound optional</p>
           {fullscreenMessage && <p role="status">{fullscreenMessage}</p>}
         </section>
         {debug && (
@@ -194,6 +201,7 @@ export function RuntimeStage({ director, debug = false }: RuntimeStageProps) {
       aria-label="TAS HQ Executive Vision Experience"
       data-shot-id={shot?.shot.id}
     >
+      <div className="cinema-stage__aperture" aria-hidden="true" />
       <div
         className="cinema-camera"
         style={{
@@ -307,13 +315,23 @@ function CinematicLayer({
         ? imageAssets.gacLogo
         : imageAssets.tasHqLogo;
     return (
-      <div className="cinema-subject" data-layer={layer.id}>
+      <div
+        className="cinema-subject"
+        data-layer={layer.id}
+        data-asset-id={layer.assetId}
+      >
+        <b aria-hidden="true" />
         <span aria-hidden="true" />
         <img
           src={asset.src}
           width={asset.width}
           height={asset.height}
           alt={layer.meaning ?? asset.accessibility.alt}
+          onError={(event) => {
+            event.currentTarget.parentElement?.classList.add(
+              "cinema-subject--fallback",
+            );
+          }}
         />
       </div>
     );

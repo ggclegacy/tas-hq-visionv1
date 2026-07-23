@@ -1,16 +1,16 @@
 # Phases 1–3 Unified Cinematic Treatment
 
-Status: definitive timing and visual contract for the existing Prologue, Act I, and Act II. Total runtime is 170 seconds.
+Status: definitive timing and visual contract for the existing Prologue, Act I, and Act II. BUILD 001 superseded the opening timing on 2026-07-22. Total runtime is 180 seconds.
 
 Every shot uses immediate environmental pickup, full phrase legibility within 900ms, a continuity carrier, a 500–900ms outgoing overlap, bounded light/material development during reading, and a direct deterministic final frame. Mobile uses vertical focal staging, tablet compressed depth, and desktop wide asymmetry. Essential removes atmosphere/foreground, enhanced restores light, cinematic adds foreground/specular finish, and reduced motion retains premium static lighting without axial travel.
 
-| Segment  | Shot boundaries (seconds)                               | Continuity language                                                           |
-| -------- | ------------------------------------------------------- | ----------------------------------------------------------------------------- |
-| Prologue | `0, 3, 10, 19, 31, 40`                                  | architecture → GAC emblem → occlusion → TAS HQ emblem → threshold             |
-| Act I    | `40, 47, 55, 63, 71, 79, 88, 96, 102`                   | architecture, green knowledge light, warm human aperture, gold standard edge  |
-| Act II   | `102, 108, 115, 121, 128, 135, 142, 149, 156, 163, 170` | expanding architecture, divided paths, occlusion, pattern reveal, Vision hold |
+| Segment  | Shot boundaries (seconds)                               | Continuity language                                                                |
+| -------- | ------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Prologue | `0, 4, 12, 22, 31, 43, 50`                              | architecture → GAC emblem → occlusion → human standard → TAS HQ emblem → threshold |
+| Act I    | `50, 57, 65, 73, 81, 89, 98, 106, 112`                  | architecture, green knowledge light, warm human aperture, gold standard edge       |
+| Act II   | `112, 118, 125, 131, 138, 145, 152, 159, 166, 173, 180` | expanding architecture, divided paths, occlusion, pattern reveal, Vision hold      |
 
-Approved copy and narrative order remain exactly those in the definitive segment treatments. Captions are retimed inside the 40-second Prologue; later audio remains replaceable metadata.
+Approved copy and narrative order remain exactly those in the definitive segment treatments. Captions are retimed inside the 50-second opening; later audio remains replaceable metadata.
 
 ## Scene 1 benchmark
 

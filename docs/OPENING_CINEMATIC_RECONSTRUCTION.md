@@ -1,23 +1,40 @@
-# Opening Cinematic Reconstruction
+# BUILD 001 — Executive Opening Reconstruction Treatment
 
-## Audit and scope map
+Status: implementation in progress; Neil's subjective visual acceptance pending.
 
-The canonical opening is `0–40000ms`, followed by the existing Act I remainder at `40000ms`. Five Prologue shots exist; four previously carried dominant copy, with duplicated TAS HQ/threshold emphasis. The Director, pure resolver, overlap/carrier metadata, layered stage, viewport profiles, tiers, reduced motion, caption controls, silent media adapter, interruption recovery, and logo preload are preserved. The flat-card risk came from repeated copy-plane geometry and generic narration rather than a second renderer.
+## Authority, scope, and baseline
 
-Protected logos enter through `imageAssets` and manifest media layers; both use the shared `.cinema-subject` artifact system. Downstream timing is unchanged. Unrelated untracked Phase 4/build-sequence documents are preserved without formatting or edits. Baseline: 58 tests and build pass; repository-wide format check is blocked only by the unrelated untracked Phase 4 document.
+`docs/PRODUCTION_BIBLE.md` is the master playbook. The Cinematic Direction, Production Asset, Motion, and Onyx Bibles control their domains. `docs/INTERFACE_BIBLE.md` remains absent; this opening contains no product interface and BUILD 001 provides an unambiguous path. The deterministic Director, pure resolver, layered stage, transport, captions, silent fallback, viewport profiles, tiers, reduced motion, and protected logo assets are preserved.
 
-## Definitive five-shot opening
+BUILD 001 supersedes the prior 40-second opening with a 50-second, six-shot opening. Act I and Act II retain their approved durations and content with a mechanical +10-second absolute shift. Baseline on `main`: types, lint, 58 tests, build, logo hashes, and diff hygiene pass. Bundle baseline is 230.25 kB JS / 71.74 kB gzip and 14.62 kB CSS / 4.38 kB gzip. Repository formatting is pre-existingly blocked by untracked permanent/build documents; those sources remain untouched.
 
-| Time   | Shot and emotional objective                                                                         | Composition and transition                                                                                           |
-| ------ | ---------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
-| 0–3s   | Living-world pickup: establish scale without a title card.                                           | Immediate obsidian/graphite depth, green light travel, foreground obstruction; architecture carries into authorship. |
-| 3–10s  | GAC authorship: confident, premium provenance. Screen copy: `Gent Ascend Collective presents`.       | Large near-centered GAC artifact, rim/specular/halo, off-axis copy; emblem and camera carry into dedication.         |
-| 10–19s | Exclusive dedication: private recognition. Exact preserved names.                                    | Asymmetric architectural typography with warm human-scale aperture; occlusion reveals the TAS volume.                |
-| 19–31s | TAS HQ gateway: commanding system identity. Screen copy: `TAS HQ`, `An Executive Vision Experience`. | Largest emblem, controlled axial response and intelligence-light passage; emblem remains as spatial carrier.         |
-| 31–40s | Act I handoff: one culmination, not a fourth card. Screen copy: `Act I`, `The Standard`.             | Emblem recedes upward as architecture opens; camera continues directly into the existing Act I opening.              |
+## Narrative contract
 
-Draft Onyx/captions: “What Blair and Bailey built lives in the people who carry it. The knowledge behind every confident answer. The care behind every patient interaction. A standard protected by leadership, and carried forward through growth. Gent Ascend Collective presents a vision created exclusively for Blair Vidrine, Bailey Soileau, and The Apothecary Shoppe. This is TAS HQ. Act I. The Standard.” Final voice and ambience remain pending; captions and silent meaning are complete.
+- Narrative job: recognize what Blair and Bailey built, establish private authorship, reveal TAS HQ as a dignified system presence, and cross into The Standard.
+- Emotional movement: exclusivity → recognition → respect → possibility → authority.
+- Runtime: 50 seconds, six contiguous shots, three major title moments.
+- Audio: final Onyx and ambience are pending. Exact captions and silent visual meaning remain complete; no TTS or runtime voice dependency is permitted.
+- World: persistent obsidian/graphite executive architecture with localized green intelligence, champagne-metal significance, ivory language, controlled glass, foreground occlusion, and deterministic environmental life.
 
-## Production rules
+## Mandatory shot production contracts
 
-There are three major title moments: GAC, dedication, and the combined TAS HQ/Act I culmination. Copy resolves within 700ms, overlaps use architecture/emblem/occlusion rather than crossfade alone, and no static hold exceeds three seconds without environmental development. Mobile centers hero emblems in the upper field and protects a lower copy zone; tablet compresses depth; desktop/executive display uses confident scale and negative space. Essential, enhanced, cinematic, and reduced-motion paths retain identical story meaning.
+| ID / time                        | Objective, copy, and narration                                                                                    | Composition, material, light, and motion                                                                                                                                                                   | Adaptation and carriers                                                                                                                                                     |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `shot-opening-scale` 0–4s        | Establish a living threshold before identity. No title.                                                           | Wide obsidian chamber; graphite bays across midground; dark-glass aperture foreground. A recessed green path and narrow ivory reflection begin at frame one. Controlled push settles with monumental mass. | Mobile uses vertical depth; Essential retains chamber and key edge; reduced motion holds the resolved architecture. Outgoing carrier: intelligence light.                   |
+| `shot-gac-credit` 4–12s          | Assured authorship. Copy: `Gent Ascend Collective presents`. Captions begin with the human thesis.                | Protected GAC mark in a machined hero chamber. Precision rim, one champagne specular event, slow camera approach, restrained ring response. Copy resolves in 700ms and stays quiet.                        | Mobile uses an upper-center mark and protected lower copy. Essential uses still premium lighting. Outgoing carrier: emblem edge and architectural lock.                     |
+| `shot-dedication` 12–22s         | Private recognition. Copy: `Created exclusively for`, `Blair Vidrine`, `Bailey Soileau`, `The Apothecary Shoppe`. | Asymmetric ivory name field discovered by lateral travel; warm human light modifies the same graphite world. No card or list container. Foreground occlusion creates the next aperture.                    | Portrait stacks names with authored scale. Gold remains limited to The Apothecary Shoppe. Outgoing carrier: physical occlusion.                                             |
+| `shot-standard-carried` 22–31s   | Connect the institution to its people. Copy: `What they built lives in the people who carry it.`                  | Human-scale apertures align inside the chamber; ivory becomes warmer while a governed green path travels through the architecture. Copy occupies the left third and resolves as one thought.               | Essential preserves apertures through light/shadow; reduced motion uses stable alignment. Outgoing carrier: architecture and green path.                                    |
+| `shot-tas-entry` 31–43s          | Reveal TAS HQ with commanding authority. Copy: `TAS HQ`, `An Executive Vision Experience`.                        | Protected emblem dominates a system core. Partial rings, rim light, reflection, controlled axial response, green activation, and restrained gold significance resolve around—not on—the artwork.           | Mobile gives the emblem upper-center command; tier degradation removes atmosphere before material hierarchy. Outgoing carrier: emblem core.                                 |
+| `shot-standard-threshold` 43–50s | Cross truthfully into Act I. Copy: `Act I`, `The Standard`.                                                       | The emblem recedes into the same aperture while graphite architecture opens and ivory-gold light stabilizes. The camera never resets; the final frame is also Act I's incoming world.                      | All profiles preserve a stable completion frame; reduced motion uses a direct light-state handoff. Outgoing carrier: emblem/architecture into `act1-threshold-recognition`. |
+
+All shots use `precision-out`, `executive-in-out`, `mass-out`, `continuity-in`, and `light-linear` motion tokens as applicable. Typography becomes fully legible within 700ms. Overlaps are 900ms. Camera, lighting, layers, transitions, captions, and logos reconstruct from canonical Director time under pause, forward/backward seek, replay, interruption, tier, viewport, and reduced-motion changes.
+
+## Asset and performance contract
+
+- Protected assets: `/assets/gac-logo.png` and `/assets/tas-hq-logo.png`; root/public pairs must remain byte-identical.
+- No external, licensed, live, WebGL, video, or audio asset is required.
+- Essential: architecture, subject, semantic copy, and baked light hierarchy.
+- Enhanced: bounded light, glass depth, and one atmospheric layer.
+- Cinematic: foreground aperture, fuller reflection, and restrained depth finish.
+- Degradation order: particles (none), live fog (none), secondary reflection, blur/shadow finish, tertiary foreground depth, secondary ambient motion.
+- Only the active shot and its declarative overlap metadata render. One request-animation-frame adapter exists only while playing.

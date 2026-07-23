@@ -1,6 +1,6 @@
 # TAS HQ Executive Vision Experience
 
-A directed executive cinematic experience. The default route combines a 40-second Prologue, 62-second Act I, and 68-second Act II on one deterministic 170-second timeline.
+A directed executive cinematic experience. The default route combines a 50-second executive opening, 62-second Act I, and 68-second Act II on one deterministic 180-second timeline.
 
 ## Setup
 

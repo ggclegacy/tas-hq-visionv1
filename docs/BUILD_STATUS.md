@@ -1,6 +1,103 @@
 # TAS HQ Executive Vision Experience — Build Status
 
-Last updated: 2026-07-21
+Last updated: 2026-07-22
+
+## BUILD 001 — Executive Opening Reconstruction
+
+### Prompt 1 — Repository audit and measured baseline
+
+- Status: Complete (2026-07-22).
+- Outcome: audited the `main` worktree, governing authorities, Director/resolver/stage/media/control paths, 40-second opening, Act I boundary, responsive/tier/reduced-motion behavior, loops, image path, tests, and bundle. `INTERFACE_BIBLE.md` remains absent and is non-blocking for this cinematic-only scope.
+- Files: canonical audit recorded in `docs/OPENING_CINEMATIC_RECONSTRUCTION.md`; unrelated untracked user documents preserved.
+- Checks: typecheck, zero-warning lint, 58 tests, production build, logo hashes, and diff hygiene passed. Baseline bundle: JS 230.25 kB / 71.74 kB gzip; CSS 14.62 kB / 4.38 kB gzip. Global format check has five pre-existing untracked-document failures.
+- Decisions: preserve Director, resolver, stage, controls, silent fallback, logos, tiers, and existing Act I/II content; supersede only the prior 40-second opening target.
+- Next: Prompt 2 — definitive 50-second treatment and timing.
+
+### Prompt 2 — Treatment, copy, captions, and timing
+
+- Status: Complete (2026-07-22).
+- Outcome: authored one 50-second, six-shot treatment with exact copy/captions, three title moments, mandatory shot contracts, and truthful Act I continuity. Act I/II keep their durations and content with a +10-second absolute shift.
+- Files: opening treatment, Prologue/Act I/Act II manifests, production timing tests, resolver tests, and stage integration tests.
+- Checks: strict types passed after retime; focused manifest/resolver coverage updated for all new boundaries.
+- Decisions: added one human-thesis bridge shot; final audio remains pending and no substitute was created.
+- Next: Prompt 3 — production tokens and typography primitives.
+
+### Prompt 3 — Production tokens, materials, and typography
+
+- Status: Complete (2026-07-22).
+- Outcome: aligned the active palette to canonical obsidian, graphite, apothecary green, champagne gold, bronze shadow, and warm ivory values; added named Motion Bible easing tokens; retained deterministic 700ms complete-thought reveals.
+- Files: `src/design-system/tokens.css`, `src/styles.css`.
+- Checks: typecheck passed; focused runtime suite continues after integrated environment work.
+- Performance/accessibility: semantic copy and contrast hierarchy remain intact; no new dependency or independent animation system.
+- Next: Prompt 4 — persistent living environment.
+
+### Prompt 4 — Persistent living environment
+
+- Status: Complete (2026-07-22).
+- Outcome: extended the existing active-shot DOM/CSS chamber with a persistent architectural aperture, governed channels, depth planes, material edges, and time-derived reflection development. No shot uses a plain gradient as its complete environment.
+- Files: `src/stage/RuntimeStage.tsx`, `src/styles.css`.
+- Validation: types, lint, and integrated resolver/stage suite passed after implementation.
+- Performance/accessibility: no WebGL, random, timer, video, fog simulation, or new render loop; Essential/reduced-motion retain composed architecture.
+- Next: Prompt 5 — camera, light, and transition choreography.
+
+### Prompt 5 — Camera, light, and transitions
+
+- Status: Complete (2026-07-22).
+- Outcome: varied opening camera scale/drift by narrative purpose and assigned light, emblem, occlusion, and architecture carriers to every adjacency. Overlaps remain deterministic at 900ms.
+- Files: Prologue manifest, stage vocabulary, resolver/production tests.
+- Validation: exact shot boundaries, backward seeks, reduced motion, overlap, and continuity metadata covered.
+- Decisions: no animation callback or CSS completion owns progression.
+- Next: Prompt 6 — protected logo choreography.
+
+### Prompt 6 — GAC and TAS HQ artifact choreography
+
+- Status: Complete (2026-07-22).
+- Outcome: refined the shared manifest-driven artifact system with machined rings, axial response, one traveling specular, rim/halo/shadow, responsive scale, environment interaction, early decode, and semantic text fallback.
+- Files: `src/stage/RuntimeStage.tsx`, `src/styles.css`, stage tests.
+- Validation: logo sources were not edited; final byte/hash validation is reserved for Prompt 10.
+- Performance/accessibility: Enhanced is the default tier; fallback keeps the protected image alt plus a visible brand name; reduced motion removes travel.
+- Next: Prompt 7 — Begin threshold and complete playback.
+
+### Prompt 7 — Begin threshold and opening playback
+
+- Status: Complete (2026-07-22).
+- Outcome: one Begin action retains fullscreen attempt, safe denial, and Director autoplay; the six shots run continuously through authorship, dedication, human thesis, TAS HQ, and The Standard. Runtime label now truthfully states three minutes.
+- Files: stage, Prologue manifest, production manifest, integration tests.
+- Validation: Begin, captions, silent mode, interruption, fullscreen denial, seeks, and completion remain covered.
+- Limitations: final Onyx and ambience remain pending; no substitute was created.
+- Next: Prompt 8 — Act I handoff.
+
+### Prompt 8 — Act I handoff
+
+- Status: Complete (2026-07-22).
+- Outcome: the TAS HQ core recedes into a matching aperture and opens directly into the existing Act I threshold. Act I/II content and durations remain intact with a mechanical +10-second shift.
+- Files: Prologue/Act I/Act II manifests, production tests, treatments, README, stage CSS.
+- Validation: production continuity, final Act III completion hold, and downstream seeks are covered.
+- Decisions: no later-act content, product UI, developer screen, or fake capability was added.
+- Next: Prompt 9 — responsive, accessibility, resilience, and performance hardening.
+
+### Prompt 9 — Responsive, accessibility, resilience, and older-Mac hardening
+
+- Status: Complete (2026-07-22).
+- Outcome: refined portrait treatment for the human-thesis bridge, made Enhanced the default older-Mac tier, added eager image decode with graceful failure behavior, and preserved silent/caption/fullscreen/interruption/keyboard paths.
+- Files: stage, styles, Prologue/production/stage tests.
+- Validation: integrated automated suite passes; final build/bundle/security/static evidence is recorded in Prompt 10.
+- Limitations: browser FPS and screenshot automation are unavailable, so no FPS claim is made.
+- Next: Prompt 10 — final validation and handoff.
+
+### Prompt 10 — Final validation and handoff
+
+- Status: Implementation complete (2026-07-22); Neil's subjective visual acceptance pending.
+- Outcome: one canonical 50-second/six-shot opening and one visible stage path remain. Director ownership, Begin autoplay, pause/resume, forward/backward seek, captions, interruption recovery, replay, downstream completion, continuity carriers, tiers, viewports, reduced motion, silent fallback, and protected logo identity are preserved.
+- Files: 17 tracked files changed across treatments/status, README, design tokens, Prologue/Act I/Act II manifests and tests, stage/runtime tests, and stage styling. Pre-existing untracked Production/Onyx Bibles and the authorized BUILD 001 source remain unstaged and unmodified.
+- Checks: scoped Prettier check passed; strict typecheck passed; ESLint passed with zero warnings; Vitest passed 60/60; production build passed; `npm audit --audit-level=high` found 0 vulnerabilities; secret, timer/randomness/live-AI/network, and routing scans found no prohibited runtime path; `git diff --check` passed; root/public logo hashes remain byte-identical; local production preview returned HTTP 200.
+- Bundle: final JS 231.29 kB / 72.03 kB gzip (+1.04/+0.29 kB from baseline); final CSS 17.49 kB / 4.97 kB gzip (+2.87/+0.59 kB). No FPS was measured or claimed.
+- Coverage: mobile portrait, tablet/older laptop, desktop/executive display, Essential/Enhanced/Cinematic, reduced motion, captions, silent operation, fullscreen denial, image failure, tab interruption, boundary/backward seek, replay, and completion are authored or tested as applicable.
+- Limitations: `INTERFACE_BIBLE.md`, final Onyx recording, and approved ambience remain unavailable and were not fabricated. Browser screenshot/FPS automation was not available; automated, static, bundle, integrity, and HTTP smoke evidence was used. Repository-wide format check still includes pre-existing untracked permanent/build documents outside BUILD 001's edits; scoped changed-file formatting passes.
+- Git: branch remains `main`. No commit, push, deploy, branch switch, history rewrite, or destructive operation was performed.
+- Next: Neil's subjective visual inspection, then commit/push if accepted.
+
+BUILD 001 status: **Implementation complete; visual acceptance pending Neil's inspection.**
 
 ## Cinematic Production Foundation — Prompt 1
 

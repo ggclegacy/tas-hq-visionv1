@@ -2,7 +2,7 @@ import { ACT_ONE_END_MS } from "./act-one-manifest";
 import type { ActDefinition, SceneDefinition, ShotDefinition } from "./types";
 
 export const ACT_TWO_START_MS = ACT_ONE_END_MS;
-export const ACT_TWO_END_MS = 170_000;
+export const ACT_TWO_END_MS = 180_000;
 export const ACT_TWO_DURATION_MS = ACT_TWO_END_MS - ACT_TWO_START_MS;
 const tiers = ["essential", "enhanced", "cinematic"] as const;
 const viewports = {

@@ -1,7 +1,7 @@
 import type { ActDefinition, SceneDefinition, ShotDefinition } from "./types";
 
-export const ACT_ONE_START_MS = 40_000;
-export const ACT_ONE_END_MS = 102_000;
+export const ACT_ONE_START_MS = 50_000;
+export const ACT_ONE_END_MS = 112_000;
 export const ACT_ONE_DURATION_MS = ACT_ONE_END_MS - ACT_ONE_START_MS;
 
 const tiers = ["essential", "enhanced", "cinematic"] as const;
@@ -35,68 +35,64 @@ const viewports = {
 const specs = [
   [
     "act1-threshold-recognition",
-    40_000,
-    47_000,
-    [
-      "Act I",
-      "The Standard",
-      "What Blair and Bailey built lives in the people who carry it.",
-    ],
+    50_000,
+    57_000,
+    ["Act I", "The Standard", "Carried by people. Protected through growth."],
     "Recognition",
     "gold",
   ],
   [
     "act1-trust",
-    47_000,
-    55_000,
+    57_000,
+    65_000,
     ["Trust", "Earned in every interaction."],
     "Trust has human weight",
     "gold",
   ],
   [
     "act1-knowledge",
-    55_000,
-    63_000,
+    65_000,
+    73_000,
     ["Knowledge", "Made valuable when it is shared."],
     "Knowledge moves through people",
     "green",
   ],
   [
     "act1-culture",
-    63_000,
-    71_000,
+    73_000,
+    81_000,
     ["Culture", "The standard people carry when no one is watching."],
     "Culture remains embedded",
     "balanced",
   ],
   [
     "act1-people",
-    71_000,
-    79_000,
+    81_000,
+    89_000,
     ["People", "The human system behind every experience."],
     "People carry the standard",
     "balanced",
   ],
   [
     "act1-leadership",
-    79_000,
-    88_000,
+    89_000,
+    98_000,
     ["Leadership", "Clarity. Stewardship. Continuity."],
     "Leadership provides continuity",
     "gold",
   ],
   [
     "act1-synthesis",
-    88_000,
-    96_000,
+    98_000,
+    106_000,
     ["What has been built here is more than a business.", "It is a standard."],
     "One institutional standard",
     "green",
   ],
   [
     "act1-challenge-threshold",
-    96_000,
-    102_000,
+    106_000,
+    112_000,
     ["Act II", "The Challenge"],
     "Create truthful forward tension",
     "darkness",

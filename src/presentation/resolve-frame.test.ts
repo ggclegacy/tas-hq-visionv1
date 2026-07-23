@@ -10,11 +10,11 @@ const options = {
   viewport: "desktop" as const,
 };
 const snapshot = (timeMs: number): DirectorSnapshot => ({
-  state: timeMs === 40_000 ? "completed" : "playing",
+  state: timeMs === 50_000 ? "completed" : "playing",
   presentationId: "tas-hq-prologue",
   timeMs,
-  durationMs: 40_000,
-  progress: timeMs / 40_000,
+  durationMs: 50_000,
+  progress: timeMs / 50_000,
   currentActId: null,
   currentChapterId: null,
   currentSceneId: null,
@@ -25,11 +25,12 @@ const snapshot = (timeMs: number): DirectorSnapshot => ({
 describe("unified Prologue frame resolution", () => {
   it.each([
     [0, "shot-opening-scale"],
-    [3_000, "shot-gac-credit"],
-    [10_000, "shot-dedication"],
-    [19_000, "shot-tas-entry"],
-    [31_000, "shot-standard-threshold"],
-    [40_000, "shot-standard-threshold"],
+    [4_000, "shot-gac-credit"],
+    [12_000, "shot-dedication"],
+    [22_000, "shot-standard-carried"],
+    [31_000, "shot-tas-entry"],
+    [43_000, "shot-standard-threshold"],
+    [50_000, "shot-standard-threshold"],
   ] as const)("resolves boundary %ims", (timeMs, id) =>
     expect(
       resolvePresentationFrame(prologueManifest, snapshot(timeMs), options).shot
@@ -62,39 +63,39 @@ describe("unified Prologue frame resolution", () => {
   );
   it("reconstructs backward seek, reduced motion, completion, and overlap", () => {
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(16_000), options).shot
+      resolvePresentationFrame(prologueManifest, snapshot(18_000), options).shot
         ?.shot.id,
     ).toBe("shot-dedication");
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(5_000), options).shot
+      resolvePresentationFrame(prologueManifest, snapshot(6_000), options).shot
         ?.shot.id,
     ).toBe("shot-gac-credit");
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(16_000), {
+      resolvePresentationFrame(prologueManifest, snapshot(18_000), {
         ...options,
         reducedMotion: true,
       }).shot?.camera.driftX,
     ).toBe(0);
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(40_000), options).shot
+      resolvePresentationFrame(prologueManifest, snapshot(50_000), options).shot
         ?.progress,
     ).toBe(1);
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(9_500), options).shot
+      resolvePresentationFrame(prologueManifest, snapshot(11_500), options).shot
         ?.overlap?.nextShotId,
     ).toBe("shot-dedication");
   });
   it("keeps reconstructed captions aligned through the handoff", () => {
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(4_000), options)
+      resolvePresentationFrame(prologueManifest, snapshot(5_000), options)
         .caption?.id,
     ).toBe("caption-people-carry-it");
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(32_000), options)
+      resolvePresentationFrame(prologueManifest, snapshot(37_000), options)
         .caption?.id,
     ).toBe("caption-tas");
     expect(
-      resolvePresentationFrame(prologueManifest, snapshot(39_000), options)
+      resolvePresentationFrame(prologueManifest, snapshot(49_000), options)
         .caption?.id,
     ).toBe("caption-standard");
   });
